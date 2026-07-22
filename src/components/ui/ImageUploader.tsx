@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Upload, X, Image as ImageIcon, GripVertical, Plus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -127,10 +128,13 @@ export default function ImageUploader({ images, onChange, maxImages = 10, folder
                 exit={{ opacity: 0, scale: 0.8 }}
                 className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200 bg-gray-100"
               >
-                <img
+                <Image
                   src={img.url}
                   alt={img.alt || `Product image ${index + 1}`}
+                  width={200}
+                  height={200}
                   className="w-full h-full object-cover"
+                  unoptimized
                 />
 
                 {/* Overlay */}

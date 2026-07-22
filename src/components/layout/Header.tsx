@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import {
   Search, ShoppingBag, Heart, Menu, X, ChevronDown,
@@ -190,10 +191,13 @@ export default function Header() {
                     className="p-1 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     {session.user?.image ? (
-                      <img
+                      <Image
                         src={session.user.image}
                         alt={session.user.name || "User"}
+                        width={36}
+                        height={36}
                         className="w-9 h-9 rounded-full ring-2 ring-pink-200"
+                        unoptimized
                       />
                     ) : (
                       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
@@ -289,7 +293,7 @@ export default function Header() {
                 {session ? (
                   <div className="flex items-center gap-3 p-4 mb-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl">
                     {session.user?.image ? (
-                      <img src={session.user.image} alt="" className="w-10 h-10 rounded-full" />
+                      <Image src={session.user.image} alt="" width={40} height={40} className="w-10 h-10 rounded-full" unoptimized />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
                         <User className="h-5 w-5 text-white" />

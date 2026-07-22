@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Users, Search, Shield, ShieldOff, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
@@ -132,7 +133,7 @@ export default function UsersPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         {user.image ? (
-                          <img src={user.image} alt={user.name} className="w-9 h-9 rounded-full" />
+                          <Image src={user.image} alt={user.name} width={36} height={36} className="w-9 h-9 rounded-full" unoptimized />
                         ) : (
                           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
                             {user.name?.charAt(0).toUpperCase()}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Plus, Trash2, X, Edit2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -122,13 +123,13 @@ export default function AdminVideosPage() {
         {loading ? (
           <p className="text-gray-500">Loading...</p>
         ) : videos.length === 0 ? (
-          <p className="text-gray-400 col-span-3 text-center py-12">No videos yet. Click "Add Video" to upload one.</p>
+          <p className="text-gray-400 col-span-3 text-center py-12">No videos yet. Click &quot;Add Video&quot; to upload one.</p>
         ) : (
           videos.map((video: any) => (
             <div key={video._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group">
               {video.thumbnail ? (
                 <div className="h-40 bg-gray-100 relative">
-                  <img src={video.thumbnail} alt="" className="w-full h-full object-cover" />
+                  <Image src={video.thumbnail} alt="" width={400} height={160} className="w-full h-full object-cover" unoptimized />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
                       <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-pink-500 border-b-8 border-b-transparent ml-1" />

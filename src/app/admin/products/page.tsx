@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Plus, Edit, Trash2, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -63,7 +64,7 @@ export default function AdminProductsPage() {
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0">
-                          {product.thumbnail && <img src={product.thumbnail} alt="" className="w-full h-full object-cover" />}
+                          {product.thumbnail && <Image src={product.thumbnail} alt="" width={48} height={48} className="w-full h-full object-cover" unoptimized />}
                         </div>
                         <div>
                           <p className="font-medium text-sm">{product.name}</p>

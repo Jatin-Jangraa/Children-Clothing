@@ -13,7 +13,7 @@ import Input from "@/components/ui/Input";
 import { Breadcrumb } from "@/components/ui";
 import { useCartStore } from "@/store";
 import { formatPrice } from "@/utils";
-import { checkoutSchema } from "@/schemas/order";
+import { checkoutSchema, type CheckoutFormData } from "@/schemas/order";
 import { toast } from "sonner";
 
 declare global {
@@ -29,7 +29,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showLoginBanner, setShowLoginBanner] = useState(true);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       name: session?.user?.name || "",

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Search, X, TrendingUp, Clock, ArrowRight } from "lucide-react";
 import { useDebounce } from "@/hooks";
 import { useSearchStore } from "@/store";
@@ -157,7 +158,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           >
                             <div className="w-12 h-12 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0">
                               {product.thumbnail && (
-                                <img src={product.thumbnail} alt={product.name} className="w-full h-full object-cover" />
+                                <Image src={product.thumbnail} alt={product.name} width={48} height={48} className="w-full h-full object-cover" unoptimized />
                               )}
                             </div>
                             <div className="flex-1 min-w-0">

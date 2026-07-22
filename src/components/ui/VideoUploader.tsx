@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Upload, X, Video, Play } from "lucide-react";
 import { toast } from "sonner";
 
@@ -150,7 +151,7 @@ export default function VideoUploader({
 
         {thumbnailUrl ? (
           <div className="relative rounded-xl overflow-hidden aspect-video bg-gray-100">
-            <img src={thumbnailUrl} alt="Thumbnail" className="w-full h-full object-cover" />
+            <Image src={thumbnailUrl} alt="Thumbnail" width={400} height={225} className="w-full h-full object-cover" unoptimized />
             <div className="absolute inset-0 flex items-center justify-center">
               <Play className="h-12 w-12 text-white drop-shadow-lg" />
             </div>

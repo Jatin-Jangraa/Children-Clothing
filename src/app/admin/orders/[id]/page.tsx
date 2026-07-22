@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -76,7 +77,7 @@ export default function OrderDetailPage() {
           {order.items?.map((item: any, i: number) => (
             <div key={i} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
               <div className="w-16 h-16 rounded-xl bg-gray-200 overflow-hidden flex-shrink-0">
-                {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
+                {item.image && <Image src={item.image} alt="" width={64} height={64} className="w-full h-full object-cover" unoptimized />}
               </div>
               <div className="flex-1">
                 <p className="font-medium text-sm">{item.name}</p>
