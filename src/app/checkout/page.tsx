@@ -45,13 +45,32 @@ export default function CheckoutPage() {
     },
   });
 
+  const loadRazorpaySDK = () =>
+    new Promise<void>((resolve) => {
+      if (typeof window !== "undefined" && typeof window.Razorpay === "function") {
+        resolve();
+        return;
+      }
+      const existing = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+      if (existing) {
+        existing.addEventListener("load", () => resolve());
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve();
+      document.body.appendChild(script);
+    });
+
   const handlePayment = async (formData: any) => {
     if (items.length === 0) {
       toast.error("Your cart is empty");
       return;
     }
-    if (!window.Razorpay) {
-      toast.error("Payment gateway is loading. Please try again in a moment.");
+    await loadRazorpaySDK();
+    if (typeof window.Razorpay !== "function") {
+      toast.error("Payment gateway failed to load. Please refresh and try again.");
+      setIsProcessing(false);
       return;
     }
     setIsProcessing(true);
@@ -150,7 +169,7 @@ export default function CheckoutPage() {
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         onLoad={() => setRazorpayLoaded(true)}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
       <div className="max-w-7xl mx-auto px-4 py-6">
         <Breadcrumb items={[{ label: "Cart", href: "/cart" }, { label: "Checkout" }]} />
