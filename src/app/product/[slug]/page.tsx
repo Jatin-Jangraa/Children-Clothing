@@ -202,7 +202,7 @@ export default function ProductDetailsPage() {
                       const half = !filled && i < Math.ceil(product.rating) && product.rating % 1 >= 0.3;
                       return (
                         <div key={i} className="relative w-4 h-4">
-                          <Star className="absolute inset-0 w-4 h-4 text-gray-200 fill-gray-200" />
+                          <Star className="absolute inset-0 w-4 h-4 text-gray-300 fill-gray-300" />
                           {filled && <Star className="absolute inset-0 w-4 h-4 text-amber-400 fill-amber-400" />}
                           {half && (
                             <div className="absolute inset-0 w-1/2 overflow-hidden">
@@ -348,7 +348,7 @@ export default function ProductDetailsPage() {
                 <p className="text-4xl font-bold text-gray-900">{product.rating > 0 ? product.rating : "—"}</p>
                 <div className="flex items-center justify-center gap-1 mt-2">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < Math.round(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < Math.round(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-300 fill-gray-300"}`} />
                   ))}
                 </div>
                 <p className="text-sm text-gray-400 mt-1.5">{product.reviewCount} reviews</p>
@@ -408,7 +408,7 @@ export default function ProductDetailsPage() {
                             onClick={() => setReviewForm({ ...reviewForm, rating: s })}
                             className="p-0.5"
                           >
-                            <Star className={`w-6 h-6 transition-colors ${s <= reviewForm.rating ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} />
+                            <Star className={`w-6 h-6 transition-colors ${s <= reviewForm.rating ? "text-amber-400 fill-amber-400" : "text-gray-300 fill-gray-300"}`} />
                           </button>
                         ))}
                         <span className="text-sm text-gray-500 ml-2">{reviewForm.rating}/5</span>
@@ -463,7 +463,7 @@ export default function ProductDetailsPage() {
                             </div>
                             <div className="flex items-center gap-1 mt-0.5">
                               {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`w-3 h-3 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} />
+                                <Star key={i} className={`w-3 h-3 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-300 fill-gray-300"}`} />
                               ))}
                               <span className="text-[11px] text-gray-400 ml-1">
                                 {new Date(review.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}

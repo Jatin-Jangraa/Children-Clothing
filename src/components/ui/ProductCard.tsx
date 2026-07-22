@@ -133,7 +133,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                       className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${
                         i < Math.round(product.rating)
                           ? "text-amber-400 fill-amber-400"
-                          : "text-gray-200"
+                          : "text-gray-300"
                       }`}
                     />
                   ))}

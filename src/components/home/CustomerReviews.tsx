@@ -41,7 +41,7 @@ export default function CustomerReviews() {
             >
               <div className="flex items-center gap-1 mb-2.5 sm:mb-3">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-200"}`} />
+                  <Star key={i} className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-300"}`} />
                 ))}
               </div>
               <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-pink-200 mb-2 sm:mb-3" />

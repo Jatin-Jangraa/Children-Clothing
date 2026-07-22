@@ -83,17 +83,17 @@ export default function Footer() {
               </div>
               <h2 className="text-lg sm:text-xl font-bold">Little Closet</h2>
             </Link>
-            <p className="text-gray-400 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed">
+            <p className="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed">
               Premium children&apos;s clothing where style meets comfort. Dress your little ones in the finest fashion.
             </p>
             <div className="space-y-2 sm:space-y-3">
-              <a href="tel:+919876543210" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-400 hover:text-pink-400 transition-colors">
+              <a href="tel:+919876543210" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
                 <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> +91 98765 43210
               </a>
-              <a href="mailto:hello@littlecloset.in" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-400 hover:text-pink-400 transition-colors">
+              <a href="mailto:hello@littlecloset.in" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
                 <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> hello@littlecloset.in
               </a>
-              <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-400">
+              <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300">
                 <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Mumbai, Maharashtra, India
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-400 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -119,7 +119,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.help.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-400 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -133,7 +133,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.policies.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-400 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -146,7 +146,7 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          <p className="text-xs sm:text-sm text-gray-500">
+          <p className="text-xs sm:text-sm text-gray-400">
             © {new Date().getFullYear()} Little Closet. All rights reserved.
           </p>
           <div className="flex items-center gap-3 sm:gap-4">
@@ -155,7 +155,7 @@ export default function Footer() {
                 key={i}
                 href="#"
                 whileHover={{ scale: 1.2, y: -2 }}
-                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-gray-800 text-gray-400 hover:text-pink-400 hover:bg-gray-700 transition-all"
+                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-gray-800 text-gray-300 hover:text-pink-400 hover:bg-gray-700 transition-all"
               >
                 <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </motion.a>

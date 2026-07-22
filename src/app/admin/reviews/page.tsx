@@ -45,7 +45,7 @@ export default function AdminReviewsPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-sm">{review.customerName}</span>
-                  <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={`h-3 w-3 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-200"}`} />)}</div>
+                  <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={`h-3 w-3 ${i < review.rating ? "text-amber-400 fill-amber-400" : "text-gray-300"}`} />)}</div>
                   {!review.isApproved && <Badge variant="warning">Pending</Badge>}
                 </div>
                 <p className="text-sm text-gray-600 mt-1">{review.title}</p>
