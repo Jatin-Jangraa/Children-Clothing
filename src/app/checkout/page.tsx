@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession, signIn } from "next-auth/react";
+import Script from "next/script";
 import { CreditCard, Lock, CheckCircle, MapPin, User, Phone, Mail, Building, Map, LogIn, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import Button from "@/components/ui/Button";
@@ -28,6 +29,13 @@ export default function CheckoutPage() {
   const { items, getSubtotal, getDiscount, getShipping, getGst, getTotal, coupon, clearCart } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [showLoginBanner, setShowLoginBanner] = useState(true);
+  const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.Razorpay) {
+      setRazorpayLoaded(true);
+    }
+  }, []);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
@@ -40,6 +48,10 @@ export default function CheckoutPage() {
   const handlePayment = async (formData: any) => {
     if (items.length === 0) {
       toast.error("Your cart is empty");
+      return;
+    }
+    if (!window.Razorpay) {
+      toast.error("Payment gateway is loading. Please try again in a moment.");
       return;
     }
     setIsProcessing(true);
@@ -135,6 +147,11 @@ export default function CheckoutPage() {
 
   return (
     <Layout>
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        onLoad={() => setRazorpayLoaded(true)}
+        strategy="lazyOnload"
+      />
       <div className="max-w-7xl mx-auto px-4 py-6">
         <Breadcrumb items={[{ label: "Cart", href: "/cart" }, { label: "Checkout" }]} />
         <h1 className="text-3xl font-bold mt-6 mb-8">Checkout</h1>
@@ -226,8 +243,8 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <Button type="submit" fullWidth size="lg" isLoading={isProcessing} className="mt-6 group">
-                <CreditCard className="h-5 w-5 mr-2" /> Pay {formatPrice(getTotal())}
+              <Button type="submit" fullWidth size="lg" isLoading={isProcessing} disabled={!razorpayLoaded} className="mt-6 group">
+                <CreditCard className="h-5 w-5 mr-2" /> {!razorpayLoaded ? "Loading Payment..." : `Pay ${formatPrice(getTotal())}`}
               </Button>
 
               <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-400">

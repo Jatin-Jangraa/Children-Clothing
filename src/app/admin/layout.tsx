@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <AdminSidebar />
       <div className="lg:ml-64">
         <AdminHeader />
-        <main className="p-6">{children}</main>
+        <main className="p-4 sm:p-6 pt-16 lg:pt-6">{children}</main>
       </div>
     </div>
   );
