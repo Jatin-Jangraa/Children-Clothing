@@ -54,7 +54,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <motion.div
           whileHover={{ y: -8 }}
           transition={{ duration: 0.3 }}
-          className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+          className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50"
         >
           {/* Image */}
           <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
@@ -62,75 +62,75 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               src={product.thumbnail || product.images?.[0]?.url || "/images/placeholder.jpg"}
               alt={product.name}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover group-hover:scale-110 transition-transform duration-700"
             />
 
             {/* Badges */}
-            <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 sm:gap-1.5">
               {discount > 0 && (
-                <span className="px-2.5 py-1 bg-red-500 text-white text-xs font-bold rounded-lg">
+                <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-red-500 text-white text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg">
                   -{discount}%
                 </span>
               )}
               {product.isNewArrival && (
-                <span className="px-2.5 py-1 bg-green-500 text-white text-xs font-bold rounded-lg">
+                <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-green-500 text-white text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg">
                   NEW
                 </span>
               )}
               {product.isBestSeller && (
-                <span className="px-2.5 py-1 bg-amber-500 text-white text-xs font-bold rounded-lg">
+                <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-amber-500 text-white text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg">
                   BEST SELLER
                 </span>
               )}
             </div>
 
             {/* Actions */}
-            <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+            <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1.5 sm:gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleWishlist}
-                className={`p-2.5 rounded-full shadow-lg transition-colors ${
+                className={`p-2 sm:p-2.5 rounded-full shadow-lg transition-colors ${
                   inWishlist ? "bg-pink-500 text-white" : "bg-white/90 text-gray-600 hover:text-pink-500"
                 }`}
               >
-                <Heart className="h-4 w-4" fill={inWishlist ? "currentColor" : "none"} />
+                <Heart className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill={inWishlist ? "currentColor" : "none"} />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleAddToCart}
-                className="p-2.5 rounded-full bg-white/90 shadow-lg text-gray-600 hover:text-pink-500 transition-colors"
+                className="p-2 sm:p-2.5 rounded-full bg-white/90 shadow-lg text-gray-600 hover:text-pink-500 transition-colors"
               >
-                <ShoppingCart className="h-4 w-4" />
+                <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </motion.button>
             </div>
 
             {/* Quick View */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-              <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 text-center">
-                <Eye className="h-4 w-4 inline mr-1" />
-                <span className="text-xs font-semibold text-gray-700">Quick View</span>
+            <div className="absolute bottom-0 left-0 right-0 p-2.5 sm:p-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+              <div className="bg-white/95 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-3 text-center">
+                <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4 inline mr-1" />
+                <span className="text-[10px] sm:text-xs font-semibold text-gray-700">Quick View</span>
               </div>
             </div>
           </div>
 
           {/* Info */}
-          <div className="p-4">
-            <p className="text-xs text-pink-400 font-medium mb-1">{product.brand}</p>
-            <h3 className="font-semibold text-gray-800 text-sm mb-2 line-clamp-2 group-hover:text-pink-500 transition-colors">
+          <div className="p-3 sm:p-4">
+            <p className="text-[10px] sm:text-xs text-pink-500 font-medium mb-0.5 sm:mb-1">{product.brand}</p>
+            <h3 className="font-semibold text-gray-800 text-xs sm:text-sm mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-pink-500 transition-colors">
               {product.name}
             </h3>
 
             {/* Rating */}
             {product.rating > 0 && (
-              <div className="flex items-center gap-1 mb-2">
+              <div className="flex items-center gap-1 mb-1.5 sm:mb-2">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-3 w-3 ${
+                      className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${
                         i < Math.round(product.rating)
                           ? "text-amber-400 fill-amber-400"
                           : "text-gray-200"
@@ -138,31 +138,31 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                     />
                   ))}
                 </div>
-                <span className="text-xs text-gray-500">({product.reviewCount})</span>
+                <span className="text-[10px] sm:text-xs text-gray-500">({product.reviewCount})</span>
               </div>
             )}
 
             {/* Price */}
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-gray-900">{formatPrice(product.price)}</span>
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-sm sm:text-lg font-bold text-gray-900">{formatPrice(product.price)}</span>
               {discount > 0 && (
-                <span className="text-sm text-gray-400 line-through">{formatPrice(product.mrp)}</span>
+                <span className="text-xs sm:text-sm text-gray-400 line-through">{formatPrice(product.mrp)}</span>
               )}
             </div>
 
             {/* Colors */}
             {product.colors.length > 0 && (
-              <div className="flex items-center gap-1.5 mt-3">
+              <div className="flex items-center gap-1 sm:gap-1.5 mt-2 sm:mt-3">
                 {product.colors.slice(0, 5).map((color) => (
                   <div
                     key={color.name}
-                    className="w-4 h-4 rounded-full border-2 border-white shadow-sm ring-1 ring-gray-200"
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border-2 border-white shadow-sm ring-1 ring-gray-200"
                     style={{ backgroundColor: color.hex }}
                     title={color.name}
                   />
                 ))}
                 {product.colors.length > 5 && (
-                  <span className="text-xs text-gray-400">+{product.colors.length - 5}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">+{product.colors.length - 5}</span>
                 )}
               </div>
             )}

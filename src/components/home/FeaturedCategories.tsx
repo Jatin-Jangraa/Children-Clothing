@@ -15,21 +15,21 @@ const categories = [
 
 export default function FeaturedCategories() {
   return (
-    <section className="py-20 px-4">
+    <section className="py-12 sm:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold mb-3">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">
             Shop by <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Category</span>
           </h2>
-          <p className="text-gray-500 max-w-md mx-auto">Find the perfect outfits for every occasion</p>
+          <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto">Find the perfect outfits for every occasion</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {categories.map((cat, index) => (
             <motion.div
               key={cat.name}
@@ -42,19 +42,19 @@ export default function FeaturedCategories() {
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="group relative overflow-hidden rounded-3xl aspect-square"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl aspect-square"
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${cat.color}`} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
                     <motion.span
-                      className="text-5xl mb-3"
+                      className="text-3xl sm:text-5xl mb-2 sm:mb-3"
                       whileHover={{ scale: 1.2, rotate: 10 }}
                     >
                       {cat.image}
                     </motion.span>
-                    <h3 className="font-bold text-lg">{cat.name}</h3>
-                    <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-sm">
-                      Shop <ArrowRight className="h-3.5 w-3.5" />
+                    <h3 className="font-bold text-sm sm:text-lg">{cat.name}</h3>
+                    <div className="flex items-center gap-1 mt-1.5 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs sm:text-sm">
+                      Shop <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     </div>
                   </div>
                 </motion.div>

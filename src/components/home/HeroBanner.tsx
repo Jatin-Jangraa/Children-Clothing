@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 
 export default function HeroBanner() {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[70vh] sm:min-h-[85vh] flex items-center overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50" />
@@ -29,8 +29,8 @@ export default function HeroBanner() {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -41,9 +41,9 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-pink-500 mb-6 shadow-sm"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-pink-600 mb-4 sm:mb-6 shadow-sm border border-pink-100/50"
             >
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               New Summer Collection 2025
             </motion.div>
 
@@ -51,7 +51,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-5xl lg:text-7xl font-bold leading-tight mb-6"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mb-4 sm:mb-6 text-gray-900"
             >
               Dress Your
               <span className="block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
@@ -63,7 +63,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-lg text-gray-600 mb-8 max-w-md leading-relaxed"
+              className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-md leading-relaxed"
             >
               Premium children&apos;s clothing that combines comfort, quality, and the latest trends.
               Make every moment special.
@@ -73,7 +73,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-3 sm:gap-4"
             >
               <Link href="/shop">
                 <Button size="lg" className="group">
@@ -93,7 +93,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="flex gap-8 mt-12"
+              className="flex gap-6 sm:gap-8 mt-8 sm:mt-12"
             >
               {[
                 { value: "10K+", label: "Happy Parents" },
@@ -101,10 +101,10 @@ export default function HeroBanner() {
                 { value: "4.9", label: "Rating" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                  <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">{stat.label}</p>
                 </div>
               ))}
             </motion.div>

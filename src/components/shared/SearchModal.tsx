@@ -74,12 +74,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="relative max-w-2xl mx-auto mt-20 mx-4"
+            className="relative max-w-2xl mx-4 sm:mx-auto mt-16 sm:mt-20"
           >
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               {/* Search Input */}
-              <div className="flex items-center gap-3 px-5 py-4 border-b">
-                <Search className="h-5 w-5 text-gray-400" />
+              <div className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b">
+                <Search className="h-5 w-5 text-gray-400 flex-shrink-0" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -87,10 +87,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch(query)}
                   placeholder="Search for kids fashion..."
-                  className="flex-1 text-lg outline-none placeholder:text-gray-400"
+                  className="flex-1 text-base sm:text-lg outline-none placeholder:text-gray-400 text-gray-800"
                 />
-                <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
-                  <X className="h-5 w-5 text-gray-400" />
+                <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+                  <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
 
