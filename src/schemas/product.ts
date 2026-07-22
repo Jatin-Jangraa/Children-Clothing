@@ -1,0 +1,35 @@
+import { z } from "zod";
+
+export const productSchema = z.object({
+  name: z.string().min(1, "Product name is required").max(200),
+  description: z.string().min(1, "Description is required"),
+  features: z.array(z.string()).optional(),
+  careInstructions: z.array(z.string()).optional(),
+  price: z.number().min(0, "Price must be positive"),
+  discount: z.number().min(0).max(100).optional().default(0),
+  mrp: z.number().min(0, "MRP must be positive"),
+  category: z.string().min(1, "Category is required"),
+  subcategory: z.string().optional(),
+  brand: z.string().min(1, "Brand is required"),
+  ageGroup: z.string().min(1, "Age group is required"),
+  gender: z.enum(["boys", "girls", "unisex"]),
+  sizes: z.array(z.string()).min(1, "At least one size is required"),
+  colors: z.array(z.object({ name: z.string(), hex: z.string() })).min(1, "At least one color is required"),
+  material: z.string().min(1, "Material is required"),
+  images: z.array(z.object({ url: z.string().url(), alt: z.string() })).optional(),
+  videos: z.array(z.object({ url: z.string().url(), alt: z.string() })).optional(),
+  thumbnail: z.string().url().optional(),
+  tags: z.array(z.string()).optional(),
+  stock: z.number().min(0).default(0),
+  sku: z.string().min(1, "SKU is required"),
+  isFeatured: z.boolean().optional().default(false),
+  isTrending: z.boolean().optional().default(false),
+  isBestSeller: z.boolean().optional().default(false),
+  isNewArrival: z.boolean().optional().default(true),
+  isActive: z.boolean().optional().default(true),
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
+  seoKeywords: z.array(z.string()).optional(),
+});
+
+export type ProductFormData = z.infer<typeof productSchema>;
