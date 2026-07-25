@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
+import Product from "@/models/Product";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,16 +19,23 @@ export async function POST(req: NextRequest) {
       const event = JSON.parse(body);
       if (event.event === "payment.captured") {
         const payment = event.payload.payment.entity;
-        await Order.findOneAndUpdate(
-          { "paymentInfo.orderId": payment.order_id },
-          { "paymentInfo.status": "completed", orderStatus: "confirmed" }
-        );
+        const order = await Order.findOne({ "paymentInfo.orderId": payment.order_id });
+        if (order && order.paymentInfo.status !== "completed") {
+          await Order.findOneAndUpdate(
+            { "paymentInfo.orderId": payment.order_id },
+            { "paymentInfo.status": "completed", orderStatus: "confirmed" }
+          );
+          for (const item of order.items) {
+            await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
+          }
+        }
       }
       return NextResponse.json({ success: true });
     }
 
-    return NextResponse.json({ success: false }, { status: 400 });
-  } catch {
-    return NextResponse.json({ success: false }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Invalid signature" }, { status: 400 });
+  } catch (error: any) {
+    console.error("Webhook error:", error.message);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 const categories = [
   { name: "Boys", image: "👦", color: "from-blue-400 to-indigo-500", href: "/shop?gender=boys" },
   { name: "Girls", image: "👧", color: "from-pink-400 to-rose-500", href: "/shop?gender=girls" },
-  { name: "Newborn", image: "👶", color: "from-green-400 to-emerald-500", href: "/shop?age=0-3M" },
+  { name: "Newborn", image: "👶", color: "from-green-400 to-emerald-500", href: "/shop?ageGroup=0-6M" },
   { name: "Footwear", image: "👟", color: "from-amber-400 to-orange-500", href: "/shop" },
   { name: "Accessories", image: "🎀", color: "from-purple-400 to-violet-500", href: "/shop" },
   { name: "Ethnic", image: "🪷", color: "from-red-400 to-pink-500", href: "/shop" },

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin, ArrowRight, Instagram, Facebook, Youtube, Twitter } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { subscriberQuery } from "@/lib/queries";
 
 const footerLinks = {
   shop: [
@@ -18,8 +19,8 @@ const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "FAQ", href: "/faq" },
-    { label: "Size Guide", href: "/faq" },
-    { label: "Track Order", href: "/faq" },
+    { label: "Size Guide", href: "/faq#size-guide" },
+    { label: "Track Order", href: "/account/orders" },
   ],
   policies: [
     { label: "Privacy Policy", href: "/privacy-policy" },
@@ -32,11 +33,16 @@ const footerLinks = {
 export default function Footer() {
   const [email, setEmail] = useState("");
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success("Subscribed successfully!");
-      setEmail("");
+      try {
+        await subscriberQuery.subscribe(email);
+        toast.success("Subscribed successfully!");
+        setEmail("");
+      } catch {
+        toast.error("Failed to subscribe. Please try again.");
+      }
     }
   };
 

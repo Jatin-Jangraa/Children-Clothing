@@ -44,7 +44,7 @@ export default function HeroBanner() {
               className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-pink-600 mb-4 sm:mb-6 shadow-sm border border-pink-100/50"
             >
               <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              New Summer Collection 2025
+              New Summer Collection 2026
             </motion.div>
 
             <motion.h1

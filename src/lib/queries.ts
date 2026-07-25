@@ -71,6 +71,10 @@ export const orderQueries = {
     const { data } = await api.get<ApiResponse<any>>(`/orders?page=${page}&limit=${limit}`);
     return data;
   },
+  getByUserId: async (userId: string, page = 1, limit = 10) => {
+    const { data } = await api.get<ApiResponse<any>>(`/orders?userId=${userId}&page=${page}&limit=${limit}`);
+    return data;
+  },
   getById: async (id: string) => {
     const { data } = await api.get<ApiResponse<any>>(`/orders/${id}`);
     return data;
@@ -120,6 +124,10 @@ export const bannerQueries = {
 };
 
 export const reviewQueries = {
+  getAll: async () => {
+    const { data } = await api.get<ApiResponse<any>>("/reviews?all=true");
+    return data;
+  },
   getByProduct: async (productId: string) => {
     const { data } = await api.get<ApiResponse<any>>(`/reviews?product=${productId}`);
     return data;

@@ -2,21 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import razorpay from "@/lib/razorpay";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
+import { auth } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     await connectDB();
     const body = await req.json();
     const { amount, items, customerInfo, subtotal, discount, couponCode, shippingCharges, gst, userId } = body;
 
-    // Create Razorpay order
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return NextResponse.json({ success: false, error: "No items provided" }, { status: 400 });
+    }
+
     const razorpayOrder = await razorpay.orders.create({
       amount: Math.round(amount * 100),
       currency: "INR",
       receipt: `rcpt_${Date.now()}`,
     });
 
-    // Count orders for invoice number
     const orderCount = await Order.countDocuments();
     const date = new Date();
     const year = date.getFullYear().toString().slice(-2);
@@ -25,11 +32,10 @@ export async function POST(req: NextRequest) {
     const invoiceNumber = `LC${year}${month}${num}`;
     const orderId = `ORD-${Date.now()}`;
 
-    // Create order in DB
     const order = await Order.create({
       orderId,
       invoiceNumber,
-      user: userId || null,
+      user: userId || session.user.id || null,
       customerInfo,
       items,
       subtotal,

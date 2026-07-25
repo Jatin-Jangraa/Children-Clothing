@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Settings from "@/models/Settings";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
@@ -17,6 +18,10 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     await connectDB();
     const body = await req.json();
     const settings = await Settings.findOneAndUpdate({}, body, { new: true, upsert: true });

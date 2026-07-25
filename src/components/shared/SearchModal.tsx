@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Search, X, TrendingUp, Clock, ArrowRight } from "lucide-react";
 import { useDebounce } from "@/hooks";
 import { useSearchStore } from "@/store";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { searchQuery } from "@/lib/queries";
 
@@ -17,6 +18,7 @@ interface SearchModalProps {
 const trendingSearches = ["Dresses", "T-Shirts", "Jeans", "Winter Collection", "Ethnic Wear", "Party Wear"];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const handleSearch = (term: string) => {
     if (term.trim()) {
       addRecentSearch(term.trim());
+      router.push(`/search?q=${encodeURIComponent(term.trim())}`);
       onClose();
     }
   };

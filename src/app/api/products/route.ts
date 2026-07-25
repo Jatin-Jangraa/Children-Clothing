@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
+import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,8 +11,13 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "12");
     const slug = searchParams.get("slug");
     const sort = searchParams.get("sort") || "newest";
+    const includeInactive = searchParams.get("includeInactive") === "true";
 
-    const filter: any = { isActive: true };
+    let filter: any = {};
+
+    if (!includeInactive) {
+      filter.isActive = true;
+    }
 
     if (slug) filter.slug = slug;
     if (searchParams.get("category")) filter.subcategory = searchParams.get("category");
@@ -64,6 +70,10 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     await connectDB();
     const body = await req.json();
     const slug = body.name.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");

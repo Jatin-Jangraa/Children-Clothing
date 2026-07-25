@@ -132,7 +132,7 @@ export default function AdminVideosPage() {
                   <Image src={video.thumbnail} alt="" width={400} height={160} className="w-full h-full object-cover" unoptimized />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                      <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-pink-500 border-b-8 border-b-transparent ml-1" />
+                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-pink-500 border-b-[8px] border-b-transparent ml-1" />
                     </div>
                   </div>
                 </div>

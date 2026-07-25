@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImage, uploadVideo, deleteAsset } from "@/lib/cloudinary";
+import { auth } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     const formData = await req.formData();
-    const files = formData.getAll("files") as File[];
+    const files = (formData.getAll("files") as File[]).concat(formData.getAll("file") as File[]);
     const folder = (formData.get("folder") as string) || "cloth-store/products";
     const type = (formData.get("type") as string) || "image";
 
@@ -41,6 +46,10 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     const { searchParams } = new URL(req.url);
     const publicId = searchParams.get("publicId");
     if (!publicId) {

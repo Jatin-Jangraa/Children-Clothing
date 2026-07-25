@@ -3,9 +3,15 @@ import { connectDB } from "@/lib/db";
 import Analytics from "@/models/Analytics";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
+import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     await connectDB();
     const { searchParams } = new URL(req.url);
     const period = searchParams.get("period") || "30";

@@ -28,13 +28,18 @@ function SearchContent() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <Breadcrumb items={[{ label: "Search" }, { label: `"${q}"` }]} />
+        <Breadcrumb items={[{ label: "Search" }, { label: q ? `"${q}"` : "" }]} />
         <h1 className="text-3xl font-bold mt-6 mb-2">
-          Search Results for &ldquo;{q}&rdquo;
+          {q ? `Search Results for "${q}"` : "Search Products"}
         </h1>
-        <p className="text-gray-500 mb-8">{results.length} products found</p>
+        <p className="text-gray-500 mb-8">{q ? `${results.length} products found` : "Type something to search"}</p>
 
-        {loading ? (
+        {!q ? (
+          <div className="text-center py-20">
+            <p className="text-6xl mb-4">🔍</p>
+            <p className="text-gray-500 text-lg">Start typing to find products</p>
+          </div>
+        ) : loading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
             {Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)}
           </div>

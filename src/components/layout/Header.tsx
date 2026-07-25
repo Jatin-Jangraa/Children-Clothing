@@ -220,7 +220,7 @@ export default function Header() {
                         </div>
                         <div className="p-2">
                           <Link
-                            href="/checkout"
+                            href="/account/orders"
                             onClick={() => setIsUserMenuOpen(false)}
                             className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-500 rounded-xl transition-all"
                           >

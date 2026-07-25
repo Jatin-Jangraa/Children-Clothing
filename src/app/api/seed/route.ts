@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { connectDB } from "@/lib/db";
+import { auth } from "@/lib/auth";
 import Category from "@/models/Category";
 import Product from "@/models/Product";
 import Review from "@/models/Review";
@@ -107,6 +108,10 @@ const sampleReviews = [
 
 export async function POST() {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     await connectDB();
 
     const existingProducts = await Product.countDocuments();
@@ -122,6 +127,10 @@ export async function POST() {
 
 export async function PATCH() {
   try {
+    const session = await auth();
+    if (!session || session.user.role !== "admin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
     await connectDB();
     await Category.deleteMany({});
     await Product.deleteMany({});

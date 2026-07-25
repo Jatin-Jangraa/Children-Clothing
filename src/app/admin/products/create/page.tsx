@@ -29,6 +29,7 @@ export default function CreateProductPage() {
     defaultValues: {
       gender: "unisex",
       sizes: [],
+      colors: [],
       features: [],
       careInstructions: [],
       tags: [],

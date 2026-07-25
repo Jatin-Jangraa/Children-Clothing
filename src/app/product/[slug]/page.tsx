@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,6 +27,7 @@ interface Review {
 
 export default function ProductDetailsPage() {
   const params = useParams();
+  const router = useRouter();
   const [product, setProduct] = useState<IProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -110,7 +111,7 @@ export default function ProductDetailsPage() {
     if (!product) return;
     if (product.stock <= 0) { toast.error("Out of stock"); return; }
     addItem({ product, quantity, size: selectedSize, color: selectedColor });
-    window.location.href = "/checkout";
+    router.push("/checkout");
   };
 
   if (loading) {
@@ -173,9 +174,9 @@ export default function ProductDetailsPage() {
                 </span>
               )}
             </motion.div>
-            {product.images.length > 1 && (
+            {(product.images?.length || 0) > 1 && (
               <div className="flex gap-3 overflow-x-auto pb-2">
-                {product.images.map((img, i) => (
+                {product.images?.map((img, i) => (
                   <motion.button
                     key={i}
                     whileHover={{ scale: 1.05 }}

@@ -9,6 +9,7 @@ import { formatPrice } from "@/utils";
 import Button from "@/components/ui/Button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { couponQueries } from "@/lib/queries";
 
 export default function CartDrawer() {
   const {
@@ -141,11 +142,17 @@ export default function CartDrawer() {
                       className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-pink-400"
                     />
                   </div>
-                  <Button variant="outline" size="sm" onClick={() => {
-                    if (couponCode.toUpperCase() === "WELCOME10") {
-                      applyCoupon({ _id: "1", code: "WELCOME10", description: "10% off", discountType: "percentage", discountValue: 10, minimumOrder: 500, maximumDiscount: 200, usageLimit: 100, usedCount: 0, isActive: true, expiryDate: "2025-12-31", createdAt: "", updatedAt: "" });
-                      toast.success("Coupon applied!");
-                    } else {
+                  <Button variant="outline" size="sm" onClick={async () => {
+                    if (!couponCode.trim()) { toast.error("Enter a coupon code"); return; }
+                    try {
+                      const res = await couponQueries.validate(couponCode, getSubtotal());
+                      if (res.success && res.data) {
+                        applyCoupon(res.data);
+                        toast.success("Coupon applied!");
+                      } else {
+                        toast.error(res.error || "Invalid coupon");
+                      }
+                    } catch {
                       toast.error("Invalid coupon");
                     }
                   }}>

@@ -14,7 +14,7 @@ export default function AdminReviewsPage() {
 
   const fetchReviews = () => {
     setLoading(true);
-    reviewQueries.getByProduct("").then((res) => {
+    reviewQueries.getAll().then((res) => {
       setReviews(res.data || []);
     }).finally(() => setLoading(false));
   };

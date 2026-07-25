@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
+import Product from "@/models/Product";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,6 +17,11 @@ export async function POST(req: NextRequest) {
 
     const isValid = expectedSignature === razorpay_signature;
 
+    const order = await Order.findOne({ orderId });
+    if (!order) {
+      return NextResponse.json({ success: false, error: "Order not found" }, { status: 404 });
+    }
+
     await Order.findOneAndUpdate(
       { orderId },
       {
@@ -27,6 +33,9 @@ export async function POST(req: NextRequest) {
     );
 
     if (isValid) {
+      for (const item of order.items) {
+        await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
+      }
       return NextResponse.json({ success: true, message: "Payment verified" });
     } else {
       return NextResponse.json({ success: false, error: "Invalid signature" }, { status: 400 });

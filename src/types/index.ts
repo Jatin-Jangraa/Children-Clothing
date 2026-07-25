@@ -56,6 +56,7 @@ export interface IOrder {
   _id: string;
   orderId: string;
   invoiceNumber: string;
+  user?: string;
   customerInfo: {
     name: string;
     phone: string;
@@ -67,10 +68,12 @@ export interface IOrder {
   };
   items: {
     product: IProduct;
+    name: string;
     quantity: number;
     size: string;
     color: string;
     price: number;
+    image: string;
   }[];
   subtotal: number;
   discount: number;

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Package, ArrowRight, Download } from "lucide-react";
+import { CheckCircle, Package, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Layout from "@/components/layout/Layout";

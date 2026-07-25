@@ -18,7 +18,7 @@ export default function AdminProductsPage() {
 
   const fetchProducts = () => {
     setLoading(true);
-    productQueries.getAll({ limit: 100 } as any).then((res) => {
+    productQueries.getAll({ limit: 100, includeInactive: true } as any).then((res) => {
       setProducts(res.data || []);
     }).finally(() => setLoading(false));
   };
