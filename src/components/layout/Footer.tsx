@@ -47,9 +47,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#2d241b] text-white">
       {/* Newsletter */}
-      <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+      <div className="bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38]">
         <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-6">
             <div className="text-center sm:text-left">
@@ -69,7 +69,7 @@ export default function Footer() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-pink-500 font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2 text-sm"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-[#D97757] font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2 text-sm"
               >
                 Subscribe <ArrowRight className="h-4 w-4" />
               </motion.button>
@@ -84,7 +84,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-3 sm:mb-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#D97757] to-[#B85C38] flex items-center justify-center">
                 <span className="text-white font-bold text-base sm:text-lg">LC</span>
               </div>
               <h2 className="text-lg sm:text-xl font-bold">Little Closet</h2>
@@ -93,10 +93,10 @@ export default function Footer() {
               Premium children&apos;s clothing where style meets comfort. Dress your little ones in the finest fashion.
             </p>
             <div className="space-y-2 sm:space-y-3">
-              <a href="tel:+919876543210" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
+              <a href="tel:+919876543210" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                 <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> +91 98765 43210
               </a>
-              <a href="mailto:hello@littlecloset.in" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
+              <a href="mailto:hello@littlecloset.in" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                 <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> hello@littlecloset.in
               </a>
               <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300">
@@ -111,7 +111,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -125,7 +125,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.help.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -139,7 +139,7 @@ export default function Footer() {
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.policies.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-pink-400 transition-colors">
+                  <Link href={link.href} className="text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -150,7 +150,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-[#3d3025]">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className="text-xs sm:text-sm text-gray-400">
             © {new Date().getFullYear()} Little Closet. All rights reserved.
@@ -161,7 +161,7 @@ export default function Footer() {
                 key={i}
                 href="#"
                 whileHover={{ scale: 1.2, y: -2 }}
-                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-gray-800 text-gray-300 hover:text-pink-400 hover:bg-gray-700 transition-all"
+                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-[#3d3025] text-gray-300 hover:text-[#FFD8B1] hover:bg-[#4a3a2d] transition-all"
               >
                 <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </motion.a>

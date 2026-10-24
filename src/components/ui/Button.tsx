@@ -19,13 +19,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600 focus:ring-pink-400 shadow-lg shadow-pink-200 hover:shadow-xl hover:shadow-pink-300",
+        "bg-gradient-to-r from-[#D97757] to-[#B85C38] text-white hover:from-[#c56a4a] hover:to-[#a04f2f] focus:ring-[#D97757] shadow-lg shadow-[#D97757]/30 hover:shadow-xl hover:shadow-[#D97757]/40",
       secondary:
-        "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:from-indigo-600 hover:to-blue-600 focus:ring-indigo-400 shadow-lg shadow-indigo-200",
+        "bg-gradient-to-r from-[#E6A96A] to-[#D97757] text-white hover:from-[#d99f5f] hover:to-[#c56a4a] focus:ring-[#E6A96A] shadow-lg shadow-[#E6A96A]/30",
       outline:
-        "border-2 border-pink-400 text-pink-500 hover:bg-pink-50 focus:ring-pink-400",
+        "border-2 border-[#D97757] text-[#D97757] hover:bg-[#FFF1DC] focus:ring-[#D97757]",
       ghost:
-        "text-gray-600 hover:bg-gray-100 focus:ring-gray-300",
+        "text-[#4a3f35] hover:bg-[#F6E4D1]/60 focus:ring-[#F6E4D1]",
       danger:
         "bg-red-500 text-white hover:bg-red-600 focus:ring-red-400 shadow-lg shadow-red-200",
     };

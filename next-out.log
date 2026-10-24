@@ -1,0 +1,11 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://172.31.112.1:3000
+   - Experiments (use with caution):
+     · serverActions
+
+ ✓ Starting...
+ ✓ Ready in 11.5s
+ ○ Compiling / ...
+ GET / 500 in 311ms
+[?25h

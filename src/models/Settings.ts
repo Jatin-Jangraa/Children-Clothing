@@ -19,6 +19,17 @@ export interface ISettingsDoc extends Document {
     text: string;
     isActive: boolean;
   };
+  heroBanner: {
+    badgeText: string;
+    headingLine1: string;
+    headingLine2: string;
+    description: string;
+    button1Text: string;
+    button1Link: string;
+    button2Text: string;
+    button2Link: string;
+    isActive: boolean;
+  };
   metaTags: {
     title: string;
     description: string;
@@ -43,7 +54,18 @@ const SettingsSchema = new Schema<ISettingsDoc>(
       pinterest: { type: String, default: "" },
     },
     announcementBar: {
-      text: { type: String, default: "Free Shipping on Orders Above ₹999!" },
+      text: { type: String, default: "Free Shipping on Orders Above ₹999 | Use Code WELCOME10 for 10% Off" },
+      isActive: { type: Boolean, default: true },
+    },
+    heroBanner: {
+      badgeText: { type: String, default: "New Summer Collection 2026" },
+      headingLine1: { type: String, default: "Dress Your" },
+      headingLine2: { type: String, default: "Little Stars" },
+      description: { type: String, default: "Premium children's clothing that combines comfort, quality, and the latest trends. Make every moment special." },
+      button1Text: { type: String, default: "Shop Now" },
+      button1Link: { type: String, default: "/shop" },
+      button2Text: { type: String, default: "New Arrivals" },
+      button2Link: { type: String, default: "/shop?sort=newest" },
       isActive: { type: Boolean, default: true },
     },
     metaTags: {

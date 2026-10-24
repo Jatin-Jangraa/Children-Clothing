@@ -11,21 +11,21 @@ export default function HeroBanner() {
     <section className="relative min-h-[70vh] sm:min-h-[85vh] flex items-center overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF1DC] via-[#F6E4D1] to-[#FFD8B1]" />
         <motion.div
           animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 w-72 h-72 bg-pink-200/30 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-[#FFD8B1]/40 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 40, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-[#E6A96A]/30 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#F6E4D1]/40 rounded-full blur-3xl"
         />
       </div>
 
@@ -41,7 +41,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-pink-600 mb-4 sm:mb-6 shadow-sm border border-pink-100/50"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-[#B85C38] mb-4 sm:mb-6 shadow-sm border border-[#FFD8B1]"
             >
               <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               New Summer Collection 2026
@@ -51,10 +51,10 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mb-4 sm:mb-6 text-gray-900"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mb-4 sm:mb-6 text-[#4a3f35]"
             >
               Dress Your
-              <span className="block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38] bg-clip-text text-transparent">
                 Little Stars
               </span>
             </motion.h1>
@@ -63,7 +63,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-md leading-relaxed"
+              className="text-base sm:text-lg text-[#6b5d52] mb-6 sm:mb-8 max-w-md leading-relaxed"
             >
               Premium children&apos;s clothing that combines comfort, quality, and the latest trends.
               Make every moment special.
@@ -101,10 +101,10 @@ export default function HeroBanner() {
                 { value: "4.9", label: "Rating" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                  <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#D97757] to-[#B85C38] bg-clip-text text-transparent">
                     {stat.value}
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-600">{stat.label}</p>
+                  <p className="text-xs sm:text-sm text-[#6b5d52]">{stat.label}</p>
                 </div>
               ))}
             </motion.div>

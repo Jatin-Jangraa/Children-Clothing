@@ -54,10 +54,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <motion.div
           whileHover={{ y: -8 }}
           transition={{ duration: 0.3 }}
-          className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50"
+          className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-[#F6E4D1]/60"
         >
           {/* Image */}
-          <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+          <div className="relative aspect-[3/4] overflow-hidden bg-[#F6E4D1]/30">
             <Image
               src={product.thumbnail || product.images?.[0]?.url || "/images/placeholder.jpg"}
               alt={product.name}
@@ -92,7 +92,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 whileTap={{ scale: 0.9 }}
                 onClick={handleWishlist}
                 className={`p-2 sm:p-2.5 rounded-full shadow-lg transition-colors ${
-                  inWishlist ? "bg-pink-500 text-white" : "bg-white/90 text-gray-600 hover:text-pink-500"
+                  inWishlist ? "bg-[#D97757] text-white" : "bg-white/90 text-[#4a3f35] hover:text-[#D97757]"
                 }`}
               >
                 <Heart className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill={inWishlist ? "currentColor" : "none"} />
@@ -101,7 +101,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleAddToCart}
-                className="p-2 sm:p-2.5 rounded-full bg-white/90 shadow-lg text-gray-600 hover:text-pink-500 transition-colors"
+                className="p-2 sm:p-2.5 rounded-full bg-white/90 shadow-lg text-[#4a3f35] hover:text-[#D97757] transition-colors"
               >
                 <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </motion.button>
@@ -118,8 +118,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Info */}
           <div className="p-3 sm:p-4">
-            <p className="text-[10px] sm:text-xs text-pink-500 font-medium mb-0.5 sm:mb-1">{product.brand}</p>
-            <h3 className="font-semibold text-gray-800 text-xs sm:text-sm mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-pink-500 transition-colors">
+            <p className="text-[10px] sm:text-xs text-[#D97757] font-medium mb-0.5 sm:mb-1">{product.brand}</p>
+            <h3 className="font-semibold text-[#4a3f35] text-xs sm:text-sm mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-[#D97757] transition-colors">
               {product.name}
             </h3>
 
@@ -144,9 +144,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
             {/* Price */}
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="text-sm sm:text-lg font-bold text-gray-900">{formatPrice(product.price)}</span>
+              <span className="text-sm sm:text-lg font-bold text-[#4a3f35]">{formatPrice(product.price)}</span>
               {discount > 0 && (
-                <span className="text-xs sm:text-sm text-gray-400 line-through">{formatPrice(product.mrp)}</span>
+                <span className="text-xs sm:text-sm text-[#8b7355] line-through">{formatPrice(product.mrp)}</span>
               )}
             </div>
 

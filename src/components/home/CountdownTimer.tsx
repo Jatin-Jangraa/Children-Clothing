@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Clock, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 
 export default function CountdownTimer() {
   const [time, setTime] = useState({ hours: 23, minutes: 59, seconds: 59 });
@@ -24,11 +23,8 @@ export default function CountdownTimer() {
   return (
     <section className="py-10 sm:py-16 px-4">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 p-6 sm:p-8 lg:p-12"
+        <div
+          className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38] p-6 sm:p-8 lg:p-12"
         >
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -47,22 +43,20 @@ export default function CountdownTimer() {
                 { value: pad(time.hours), label: "Hours" },
                 { value: pad(time.minutes), label: "Mins" },
                 { value: pad(time.seconds), label: "Secs" },
-              ].map((item, i) => (
-                <motion.div
+              ].map((item) => (
+                <div
                   key={item.label}
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
                   className="text-center"
                 >
                   <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center mb-1">
                     <span className="text-xl sm:text-2xl lg:text-3xl font-bold">{item.value}</span>
                   </div>
                   <span className="text-[10px] sm:text-xs text-white/70">{item.label}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

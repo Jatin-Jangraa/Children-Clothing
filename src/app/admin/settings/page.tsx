@@ -69,6 +69,26 @@ export default function AdminSettingsPage() {
         </label>
       </div>
 
+      <div className="bg-white rounded-2xl p-6 shadow-sm border space-y-4">
+        <h2 className="font-bold text-lg">Hero Banner</h2>
+        <Input label="Badge Text" value={settings.heroBanner?.badgeText || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, badgeText: e.target.value } })} />
+        <div className="grid md:grid-cols-2 gap-4">
+          <Input label="Heading Line 1" value={settings.heroBanner?.headingLine1 || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, headingLine1: e.target.value } })} />
+          <Input label="Heading Line 2" value={settings.heroBanner?.headingLine2 || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, headingLine2: e.target.value } })} />
+        </div>
+        <Textarea label="Description" value={settings.heroBanner?.description || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, description: e.target.value } })} />
+        <div className="grid md:grid-cols-2 gap-4">
+          <Input label="Button 1 Text" value={settings.heroBanner?.button1Text || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, button1Text: e.target.value } })} />
+          <Input label="Button 1 Link" value={settings.heroBanner?.button1Link || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, button1Link: e.target.value } })} />
+          <Input label="Button 2 Text" value={settings.heroBanner?.button2Text || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, button2Text: e.target.value } })} />
+          <Input label="Button 2 Link" value={settings.heroBanner?.button2Link || ""} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, button2Link: e.target.value } })} />
+        </div>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={settings.heroBanner?.isActive || false} onChange={(e) => setSettings({ ...settings, heroBanner: { ...settings.heroBanner, isActive: e.target.checked } })} className="w-4 h-4 accent-pink-500 rounded" />
+          <span className="text-sm font-medium">Active</span>
+        </label>
+      </div>
+
       <Button onClick={handleSave} size="lg" isLoading={saving}><Save className="h-5 w-5 mr-2" /> Save Settings</Button>
     </div>
   );

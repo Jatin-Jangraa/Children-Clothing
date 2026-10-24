@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Providers from "@/providers";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins"
+});
 
 export const metadata: Metadata = {
   title: {
@@ -24,9 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#FFF1DC" />
       </head>
-      <body className={inter.className} style={{ colorScheme: "light" }}>
+      <body className={poppins.className} style={{ colorScheme: "light" }}>
         <Providers>{children}</Providers>
       </body>
     </html>

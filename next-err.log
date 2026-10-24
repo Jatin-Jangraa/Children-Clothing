@@ -1,0 +1,112 @@
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/app/not-found.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/app/not-found.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/app/not-found.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/components/home/CountdownTimer.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/components/home/CustomerReviews.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/components/home/FeaturedCategories.tsx
+ ⨯ ./node_modules/framer-motion/dist/es/animation/animate/subject.mjs:4:1
+Module not found: Can't resolve '../interfaces/visual-element-target.mjs's Coding\Downloads\Children-Clothing\node_modules\framer-motion\dist\es\animation\animate'
+  2 | import { visualElementStore } from '../../render/store.mjs';
+  3 | import { isMotionValue } from '../../value/utils/is-motion-value.mjs';
+> 4 | import { animateTarget } from '../interfaces/visual-element-target.mjs';
+    | ^
+  5 | import { createDOMVisualElement, createObjectVisualElement } from '../utils/create-visual-element.mjs';
+  6 | import { isDOMKeyframes } from '../utils/is-dom-keyframes.mjs';
+  7 | import { resolveSubjects } from './resolve-subjects.mjs';
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/framer-motion/dist/es/animation/animate/index.mjs
+./node_modules/framer-motion/dist/es/index.mjs
+./src/components/home/HeroBanner.tsx

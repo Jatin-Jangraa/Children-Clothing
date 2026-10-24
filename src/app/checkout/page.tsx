@@ -28,7 +28,6 @@ export default function CheckoutPage() {
   const { data: session } = useSession();
   const { items, getSubtotal, getDiscount, getShipping, getGst, getTotal, coupon, clearCart } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [showLoginBanner, setShowLoginBanner] = useState(true);
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
   useEffect(() => {
@@ -175,52 +174,15 @@ export default function CheckoutPage() {
         <Breadcrumb items={[{ label: "Cart", href: "/cart" }, { label: "Checkout" }]} />
         <h1 className="text-3xl font-bold mt-6 mb-8">Checkout</h1>
 
-        {/* Optional Login Banner */}
-        <AnimatePresence>
-          {showLoginBanner && !session && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mb-6 p-4 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-100 rounded-2xl flex items-center justify-between"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-                  <LogIn className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-800 text-sm">Sign in for a faster checkout</p>
-                  <p className="text-xs text-gray-500">Your details will be filled automatically</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button size="sm" onClick={() => signIn("google")}>
-                  Sign In
-                </Button>
-                <button
-                  onClick={() => setShowLoginBanner(false)}
-                  className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Guest Checkout Allowed */}
 
-        {/* Logged in indicator */}
-        {session && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 bg-green-50 border border-green-100 rounded-2xl flex items-center gap-3"
-          >
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            <p className="text-sm text-green-700">
-              Signed in as <span className="font-medium">{session.user?.email}</span>
-            </p>
-          </motion.div>
-        )}
+        {/* Checkout as guest */}
+        <div className="mb-6 p-4 bg-[#FFF1DC] border border-[#FFD8B1] rounded-2xl flex items-center gap-3">
+          <CheckCircle className="h-5 w-5 text-[#B85C38]" />
+          <p className="text-sm text-[#4a3f35]">
+            {session ? `Signed in as ${session.user?.email}` : "Checkout as guest - no account needed"}
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit(handlePayment)} className="grid lg:grid-cols-3 gap-8">
           {/* Shipping Info */}
@@ -241,7 +203,7 @@ export default function CheckoutPage() {
 
           {/* Order Summary */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-24">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#F6E4D1]/60 sticky top-24">
               <h2 className="text-lg font-bold mb-4">Order Summary</h2>
               <div className="space-y-3 mb-4">
                 {items.map((item) => (

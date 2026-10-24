@@ -52,7 +52,7 @@ export default function Header() {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-center py-2 text-xs font-medium">
+      <div className="bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38] text-white text-center py-2 text-xs font-medium">
         <motion.div
           animate={{ x: [0, -20, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -64,11 +64,11 @@ export default function Header() {
       </div>
 
       {/* Main Header */}
-      <motion.header
+        <motion.header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur-xl shadow-lg shadow-pink-100/20"
-            : "bg-white"
+            ? "bg-[#FFF1DC]/95 backdrop-blur-xl shadow-lg shadow-[#F6E4D1]/50"
+            : "bg-[#FFF1DC]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -77,20 +77,20 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 -ml-2 rounded-xl hover:bg-gray-100 transition-colors"
+                className="lg:hidden p-2 -ml-2 rounded-xl hover:bg-[#F6E4D1]/60 transition-colors"
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5 text-gray-700" /> : <Menu className="h-5 w-5 text-gray-700" />}
+                {isMobileMenuOpen ? <X className="h-5 w-5 text-[#4a3f35]" /> : <Menu className="h-5 w-5 text-[#4a3f35]" />}
               </button>
 
               <Link href="/" className="flex items-center gap-2.5">
                 <motion.div
                   whileHover={{ scale: 1.05, rotate: -3 }}
-                  className="w-9 h-9 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-lg shadow-pink-200"
+                  className="w-9 h-9 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-br from-[#D97757] to-[#B85C38] flex items-center justify-center shadow-lg shadow-[#D97757]/30"
                 >
                   <span className="text-white font-bold text-base lg:text-xl">LC</span>
                 </motion.div>
                 <div className="hidden sm:block">
-                  <h1 className="text-base lg:text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent leading-tight">
+                  <h1 className="text-base lg:text-xl font-bold bg-gradient-to-r from-[#D97757] to-[#B85C38] bg-clip-text text-transparent leading-tight">
                     Little Closet
                   </h1>
                   <p className="text-[10px] text-gray-400 -mt-0.5 hidden lg:block">Premium Kids Fashion</p>
@@ -109,7 +109,7 @@ export default function Header() {
                 >
                   <Link
                     href={cat.href}
-                    className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-pink-500 rounded-xl hover:bg-pink-50 transition-all"
+                    className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-[#4a3f35] hover:text-[#D97757] rounded-xl hover:bg-[#FFF1DC]/80 transition-all"
                   >
                     {cat.name}
                     {cat.subcategories && <ChevronDown className="h-3.5 w-3.5" />}
@@ -155,26 +155,26 @@ export default function Header() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+                    className="p-2 sm:p-2.5 rounded-xl hover:bg-[#F6E4D1]/60 transition-colors"
               >
-                <Search className="h-5 w-5 text-gray-600" />
+                <Search className="h-5 w-5 text-[#4a3f35]" />
               </motion.button>
 
               <Link href="/wishlist" className="hidden sm:block">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="p-2.5 rounded-xl hover:bg-gray-100 transition-colors">
-                  <Heart className="h-5 w-5 text-gray-600" />
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="p-2.5 rounded-xl hover:bg-[#F6E4D1]/60 transition-colors">
+                  <Heart className="h-5 w-5 text-[#4a3f35]" />
                 </motion.div>
               </Link>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleCart}
-                className="relative p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 transition-colors"
-              >
-                <ShoppingBag className="h-5 w-5 text-gray-600" />
-                {itemCount > 0 && (
-                  <span className="absolute top-0.5 right-0.5 sm:top-0 sm:right-0 w-4.5 h-4.5 sm:w-5 sm:h-5 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={toggleCart}
+                  className="relative p-2 sm:p-2.5 rounded-xl hover:bg-[#F6E4D1]/60 transition-colors"
+                >
+                  <ShoppingBag className="h-5 w-5 text-[#4a3f35]" />
+                  {itemCount > 0 && (
+                    <span className="absolute top-0.5 right-0.5 sm:top-0 sm:right-0 w-4.5 h-4.5 sm:w-5 sm:h-5 bg-gradient-to-r from-[#D97757] to-[#B85C38] text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                     {itemCount > 99 ? "99+" : itemCount}
                   </span>
                 )}
@@ -187,7 +187,7 @@ export default function Header() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="p-1 rounded-xl hover:bg-gray-100 transition-colors"
+                    className="p-1 rounded-xl hover:bg-[#F6E4D1]/60 transition-colors"
                   >
                     {session.user?.image ? (
                       <Image
@@ -195,11 +195,11 @@ export default function Header() {
                         alt={session.user.name || "User"}
                         width={36}
                         height={36}
-                        className="w-8 h-8 lg:w-9 lg:h-9 rounded-full ring-2 ring-pink-200"
+                        className="w-8 h-8 lg:w-9 lg:h-9 rounded-full ring-2 ring-[#FFD8B1]"
                         unoptimized
                       />
                     ) : (
-                      <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+                      <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-gradient-to-br from-[#D97757] to-[#B85C38] flex items-center justify-center">
                         <User className="h-4 w-4 text-white" />
                       </div>
                     )}
@@ -257,7 +257,7 @@ export default function Header() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => signIn("google")}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs sm:text-sm font-medium rounded-xl shadow-lg shadow-pink-200/50 hover:shadow-xl transition-all"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-gradient-to-r from-[#D97757] to-[#B85C38] text-white text-xs sm:text-sm font-medium rounded-xl shadow-lg shadow-[#D97757]/30 hover:shadow-xl transition-all"
                 >
                   <LogIn className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span className="hidden sm:inline">Sign In</span>

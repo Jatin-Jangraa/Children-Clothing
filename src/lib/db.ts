@@ -29,7 +29,7 @@ export async function connectDB() {
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       cached.promise = mongoose.connect(MONGODB_URI, {
-        bufferCommands: false,
+        bufferCommands: true,
         serverSelectionTimeoutMS: 8000,
         connectTimeoutMS: 8000,
       });
