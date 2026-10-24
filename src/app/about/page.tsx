@@ -26,7 +26,7 @@ export default function AboutPage() {
         <Breadcrumb items={[{ label: "About Us" }]} />
 
         {/* Hero */}
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center py-16">
+        <div className="text-center py-16">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             About <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Little Closet</span>
           </h1>
@@ -34,7 +34,7 @@ export default function AboutPage() {
             We&apos;re on a mission to make every child look and feel their best. Founded in 2020, Little Closet has grown
             from a small dream into India&apos;s beloved children&apos;s fashion destination.
           </p>
-        </motion.div>
+        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
