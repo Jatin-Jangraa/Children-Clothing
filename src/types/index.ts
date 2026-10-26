@@ -61,6 +61,10 @@ export interface IOrder {
   customerInfo: {
     name: string;
     phone: string;
+  whatsappNumber?: string;
+  showCallButton?: boolean;
+  showWhatsappButton?: boolean;
+
     email: string;
     address: string;
     city: string;
@@ -178,6 +182,10 @@ export interface ISettings {
   logo: string;
   favicon: string;
   phone: string;
+  whatsappNumber?: string;
+  showCallButton?: boolean;
+  showWhatsappButton?: boolean;
+
   email: string;
   address: string;
   socialLinks: {

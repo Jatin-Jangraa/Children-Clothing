@@ -273,6 +273,28 @@ export default function AdminSettingsPage() {
           <Input label="Email" value={settings.email || ""} onChange={(e) => setSettings({ ...settings, email: e.target.value })} />
         </div>
         <Input label="Address" value={settings.address || ""} onChange={(e) => setSettings({ ...settings, address: e.target.value })} />
+        {/* Floating Contact Buttons */}
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <Input label="WhatsApp Number" value={settings.whatsappNumber || ""} onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })} />
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={settings.showCallButton ?? true}
+              onChange={(e) => setSettings({ ...settings, showCallButton: e.target.checked })}
+              className="w-4 h-4 accent-pink-500 rounded"
+            />
+            Show Call Button
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={settings.showWhatsappButton ?? true}
+              onChange={(e) => setSettings({ ...settings, showWhatsappButton: e.target.checked })}
+              className="w-4 h-4 accent-pink-500 rounded"
+            />
+            Show WhatsApp Button
+          </label>
+        </div>
       </div>
 
       {/* 6. Social Links */}

@@ -53,6 +53,9 @@ const SettingsSchema = new Schema<ISettingsDoc>(
     logo: { type: String, default: "" },
     favicon: { type: String, default: "" },
     phone: { type: String, default: "" },
+  whatsappNumber: { type: String, default: "" },
+  showCallButton: { type: Boolean, default: true },
+  showWhatsappButton: { type: Boolean, default: true },
     email: { type: String, default: "" },
     address: { type: String, default: "" },
     socialLinks: {
