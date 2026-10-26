@@ -6,6 +6,9 @@ export interface ISettingsDoc extends Document {
   logo: string;
   favicon: string;
   phone: string;
+  whatsappNumber?: string;
+  showCallButton?: boolean;
+  showWhatsappButton?: boolean;
   email: string;
   address: string;
   socialLinks: {
