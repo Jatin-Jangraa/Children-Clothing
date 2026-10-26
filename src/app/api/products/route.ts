@@ -30,6 +30,7 @@ export async function GET(req: NextRequest) {
     if (searchParams.get("isNewArrival") === "true") filter.isNewArrival = true;
     if (searchParams.get("isTrending") === "true") filter.isTrending = true;
     if (searchParams.get("isBestSeller") === "true") filter.isBestSeller = true;
+    if (searchParams.get("showInHero") === "true") filter.showInHero = true;
     if (searchParams.get("inStock") === "true") filter.stock = { $gt: 0 };
     if (searchParams.get("minPrice") || searchParams.get("maxPrice")) {
       filter.price = {};

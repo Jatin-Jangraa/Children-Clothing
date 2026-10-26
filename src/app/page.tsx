@@ -6,8 +6,9 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import CustomerReviews from "@/components/home/CustomerReviews";
 import InstagramGallery from "@/components/home/InstagramGallery";
 import CountdownTimer from "@/components/home/CountdownTimer";
+import type { IProduct } from "@/types";
 
-async function getProducts(params: string) {
+async function getProducts(params: string): Promise<IProduct[]> {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/products?${params}`, { next: { revalidate: 60 } });
     if (!res.ok) return [];
@@ -19,16 +20,25 @@ async function getProducts(params: string) {
 }
 
 export default async function HomePage() {
-  const [featuredProducts, newArrivals, trendingProducts, bestSellers] = await Promise.all([
+  const [heroProducts, featuredProducts, newArrivals, trendingProducts, bestSellers] = await Promise.all([
+    getProducts("showInHero=true&limit=4"),
     getProducts("isFeatured=true&limit=8"),
     getProducts("isNewArrival=true&sort=newest&limit=8"),
     getProducts("isTrending=true&limit=8"),
     getProducts("isBestSeller=true&limit=8"),
   ]);
 
+  // Use products with showInHero=true; if fewer than 4 exist, fallback to featured products so all 4 hero slots are populated
+  const heroList: IProduct[] = heroProducts.length >= 4
+    ? heroProducts.slice(0, 4)
+    : [
+        ...heroProducts,
+        ...featuredProducts.filter((p) => !heroProducts.some((hp) => hp._id === p._id)),
+      ].slice(0, 4);
+
   return (
     <Layout>
-      <HeroBanner />
+      <HeroBanner products={heroList} />
       <FeaturedCategories />
       <ProductGrid title="Featured Products" subtitle="Handpicked just for you" products={featuredProducts} viewAllHref="/shop?sort=popularity" />
       <CountdownTimer />

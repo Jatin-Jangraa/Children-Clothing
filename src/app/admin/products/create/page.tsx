@@ -42,6 +42,7 @@ export default function CreateProductPage() {
       isBestSeller: false,
       isNewArrival: true,
       isActive: true,
+      showInHero: false,
     },
   });
 
@@ -149,10 +150,12 @@ export default function CreateProductPage() {
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
           <h2 className="font-bold text-lg">Status Flags</h2>
           <div className="flex flex-wrap gap-4">
-            {(["isFeatured", "isTrending", "isBestSeller", "isNewArrival", "isActive"] as const).map((flag) => (
+            {((["isFeatured", "isTrending", "isBestSeller", "isNewArrival", "isActive", "showInHero"] as const)).map((flag) => (
               <label key={flag} className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" {...register(flag)} className="w-4 h-4 accent-pink-500 rounded" />
-                <span className="text-sm font-medium">{flag.replace(/([A-Z])/g, " $1").replace(/^is/, "")}</span>
+                <span className="text-sm font-medium">
+                  {flag === "showInHero" ? "Show in Hero Section (Home)" : flag.replace(/([A-Z])/g, " $1").replace(/^is/, "")}
+                </span>
               </label>
             ))}
           </div>

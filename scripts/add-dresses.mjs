@@ -24,6 +24,7 @@ const dresses = [
     isNewArrival: true,
     isTrending: true,
     isBestSeller: false,
+    showInHero: true,
     image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500&h=650&fit=crop",
   },
   {
@@ -49,6 +50,7 @@ const dresses = [
     isNewArrival: true,
     isTrending: false,
     isBestSeller: true,
+    showInHero: true,
     image: "https://images.unsplash.com/photo-1621452773781-0f992fd1f5c1?w=500&h=650&fit=crop",
   },
   {
@@ -74,6 +76,7 @@ const dresses = [
     isNewArrival: false,
     isTrending: true,
     isBestSeller: false,
+    showInHero: true,
     image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&h=650&fit=crop",
   },
   {
@@ -149,6 +152,7 @@ const dresses = [
     isNewArrival: true,
     isTrending: true,
     isBestSeller: false,
+    showInHero: true,
     image: "https://images.unsplash.com/photo-1471286174890-9c112ffca56a?w=500&h=650&fit=crop",
   },
 ];
@@ -240,6 +244,7 @@ async function run() {
       isTrending: item.isTrending,
       isBestSeller: item.isBestSeller,
       isNewArrival: item.isNewArrival,
+      showInHero: item.showInHero ?? false,
       isActive: true,
       seoTitle: `${item.name} | Little Closet`,
       seoDescription: item.description,

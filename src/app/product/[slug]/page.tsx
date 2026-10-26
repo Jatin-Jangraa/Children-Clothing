@@ -101,7 +101,7 @@ export default function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (!product) return;
-    if (product.stock <= 0) { toast.error("Out of stock"); return; }
+    
     addItem({ product, quantity, size: selectedSize, color: selectedColor });
     openCart();
     toast.success("Added to cart!");
@@ -109,7 +109,7 @@ export default function ProductDetailsPage() {
 
   const handleBuyNow = () => {
     if (!product) return;
-    if (product.stock <= 0) { toast.error("Out of stock"); return; }
+    
     addItem({ product, quantity, size: selectedSize, color: selectedColor });
     router.push("/checkout");
   };
@@ -284,16 +284,13 @@ export default function ProductDetailsPage() {
 
             {/* Stock */}
             <div className="flex items-center gap-2">
-              {product.stock > 0 ? (
-                <><Check className="h-4 w-4 text-green-500" /><span className="text-sm text-green-600 font-medium">In Stock ({product.stock} available)</span></>
-              ) : (
-                <span className="text-sm text-red-500 font-medium">Out of Stock</span>
-              )}
+              <Check className="h-4 w-4 text-green-500" />
+              <span className="text-sm text-green-600 font-medium">In Stock</span>
             </div>
 
             {/* Actions */}
             <div className="flex gap-3">
-              <Button size="lg" className="flex-1 group" onClick={handleAddToCart} disabled={product.stock <= 0}>
+              <Button size="lg" className="flex-1 group" onClick={handleAddToCart} >
                 <ShoppingCart className="h-5 w-5 mr-2" /> Add to Cart
               </Button>
               <motion.button

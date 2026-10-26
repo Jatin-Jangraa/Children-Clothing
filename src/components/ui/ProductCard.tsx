@@ -23,10 +23,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (product.stock <= 0) {
-      toast.error("Out of stock");
-      return;
-    }
+    
     addItem({
       product,
       quantity: 1,

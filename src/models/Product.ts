@@ -30,6 +30,7 @@ export interface IProductDoc extends Document {
   isBestSeller: boolean;
   isNewArrival: boolean;
   isActive: boolean;
+  showInHero?: boolean;
   seoTitle: string;
   seoDescription: string;
   seoKeywords: string[];
@@ -66,6 +67,7 @@ const ProductSchema = new Schema<IProductDoc>(
     isBestSeller: { type: Boolean, default: false },
     isNewArrival: { type: Boolean, default: true },
     isActive: { type: Boolean, default: true },
+    showInHero: { type: Boolean, default: false },
     seoTitle: { type: String, default: "" },
     seoDescription: { type: String, default: "" },
     seoKeywords: [{ type: String }],
@@ -82,6 +84,7 @@ ProductSchema.index({ isTrending: 1 });
 ProductSchema.index({ isBestSeller: 1 });
 ProductSchema.index({ isNewArrival: 1 });
 ProductSchema.index({ isActive: 1 });
+ProductSchema.index({ showInHero: 1 });
 ProductSchema.index({ createdAt: -1 });
 
 export default mongoose.models.Product || mongoose.model<IProductDoc>("Product", ProductSchema);

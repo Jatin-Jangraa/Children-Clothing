@@ -27,6 +27,7 @@ export const productSchema = z.object({
   isBestSeller: z.boolean().optional().default(false),
   isNewArrival: z.boolean().optional().default(true),
   isActive: z.boolean().optional().default(true),
+  showInHero: z.boolean().optional().default(false),
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),
   seoKeywords: z.array(z.string()).optional(),

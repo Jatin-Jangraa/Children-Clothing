@@ -29,6 +29,7 @@ export interface IProduct {
   isBestSeller: boolean;
   isNewArrival: boolean;
   isActive: boolean;
+  showInHero?: boolean;
   seoTitle: string;
   seoDescription: string;
   seoKeywords: string[];

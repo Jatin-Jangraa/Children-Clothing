@@ -193,6 +193,7 @@ async function seedAll() {
       images: [{ url: productImages[p.sku] || placeholderImages[i % placeholderImages.length], alt: p.name }],
       tags: [p.gender, p.ageGroup, p.material, p.brand],
       isActive: true,
+      showInHero: (p as any).showInHero ?? (i < 4),
     }));
 
     await Product.insertMany(productsToInsert);
