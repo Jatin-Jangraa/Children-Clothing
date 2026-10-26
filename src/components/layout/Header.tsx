@@ -27,6 +27,8 @@ export default function Header() {
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [announcementText, setAnnouncementText] = useState("Free Shipping on Orders Above ₹999 | Use Code WELCOME10 for 10% Off");
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const { toggleCart, getItemCount } = useCartStore();
   const { items: wishlistItems } = useWishlistStore();
@@ -49,19 +51,34 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((res) => {
+        const bar = res?.data?.announcementBar;
+        if (bar) {
+          setShowAnnouncement(bar.isActive !== false);
+          if (bar.text) setAnnouncementText(bar.text);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38] text-white text-center py-2 text-xs font-medium">
-        <motion.div
-          animate={{ x: [0, -20, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="flex items-center justify-center gap-2"
-        >
-          <Truck className="h-3.5 w-3.5" />
-          <span>Free Shipping on Orders Above ₹999 | Use Code WELCOME10 for 10% Off</span>
-        </motion.div>
-      </div>
+      {/* Announcement Bar - controlled from Admin > Settings */}
+      {showAnnouncement && (
+        <div className="bg-gradient-to-r from-[#D97757] via-[#E6A96A] to-[#B85C38] text-white text-center py-2 text-xs font-medium">
+          <motion.div
+            animate={{ x: [0, -20, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center justify-center gap-2"
+          >
+            <Truck className="h-3.5 w-3.5" />
+            <span>{announcementText}</span>
+          </motion.div>
+        </div>
+      )}
 
       {/* Main Header */}
         <motion.header
