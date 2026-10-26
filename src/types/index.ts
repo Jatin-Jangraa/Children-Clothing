@@ -191,6 +191,26 @@ export interface ISettings {
     text: string;
     isActive: boolean;
   };
+  heroBanner?: {
+    badgeText: string;
+    headingLine1: string;
+    headingLine2: string;
+    description: string;
+    button1Text: string;
+    button1Link: string;
+    button2Text: string;
+    button2Link: string;
+    isActive: boolean;
+  };
+  countdownTimer?: {
+    tagline: string;
+    heading: string;
+    subheading: string;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isActive: boolean;
+  };
   metaTags: {
     title: string;
     description: string;

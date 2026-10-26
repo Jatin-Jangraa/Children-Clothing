@@ -6,29 +6,71 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import CustomerReviews from "@/components/home/CustomerReviews";
 import InstagramGallery from "@/components/home/InstagramGallery";
 import CountdownTimer from "@/components/home/CountdownTimer";
+import { connectDB } from "@/lib/db";
+import Product from "@/models/Product";
 import type { IProduct } from "@/types";
 
-async function getProducts(params: string): Promise<IProduct[]> {
+function getBaseUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000";
+}
+
+async function getProducts(queryObj: {
+  showInHero?: boolean;
+  isFeatured?: boolean;
+  isNewArrival?: boolean;
+  isTrending?: boolean;
+  isBestSeller?: boolean;
+  sort?: string;
+  limit?: number;
+}): Promise<IProduct[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/products?${params}`, { next: { revalidate: 60 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.data || [];
+    await connectDB();
+    const filter: any = { isActive: true };
+    if (queryObj.showInHero) filter.showInHero = true;
+    if (queryObj.isFeatured) filter.isFeatured = true;
+    if (queryObj.isNewArrival) filter.isNewArrival = true;
+    if (queryObj.isTrending) filter.isTrending = true;
+    if (queryObj.isBestSeller) filter.isBestSeller = true;
+
+    let sortObj: any = { createdAt: -1 };
+    if (queryObj.sort === "newest") sortObj = { createdAt: -1 };
+    if (queryObj.sort === "popularity") sortObj = { reviewCount: -1 };
+
+    const products = await Product.find(filter)
+      .populate("category")
+      .sort(sortObj)
+      .limit(queryObj.limit || 8)
+      .lean();
+
+    return JSON.parse(JSON.stringify(products));
   } catch {
-    return [];
+    try {
+      const baseUrl = getBaseUrl();
+      const params = new URLSearchParams();
+      Object.entries(queryObj).forEach(([k, v]) => params.append(k, String(v)));
+      const res = await fetch(`${baseUrl}/api/products?${params.toString()}`, { next: { revalidate: 60 } });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.data || [];
+    } catch {
+      return [];
+    }
   }
 }
 
 export default async function HomePage() {
   const [heroProducts, featuredProducts, newArrivals, trendingProducts, bestSellers] = await Promise.all([
-    getProducts("showInHero=true&limit=4"),
-    getProducts("isFeatured=true&limit=8"),
-    getProducts("isNewArrival=true&sort=newest&limit=8"),
-    getProducts("isTrending=true&limit=8"),
-    getProducts("isBestSeller=true&limit=8"),
+    getProducts({ showInHero: true, limit: 4 }),
+    getProducts({ isFeatured: true, limit: 8 }),
+    getProducts({ isNewArrival: true, sort: "newest", limit: 8 }),
+    getProducts({ isTrending: true, limit: 8 }),
+    getProducts({ isBestSeller: true, limit: 8 }),
   ]);
 
-  // Use products with showInHero=true; if fewer than 4 exist, fallback to featured products so all 4 hero slots are populated
+  // Use only products flagged with showInHero; if fewer than 4 are specifically flagged, fallback to featured products that exist
   const heroList: IProduct[] = heroProducts.length >= 4
     ? heroProducts.slice(0, 4)
     : [

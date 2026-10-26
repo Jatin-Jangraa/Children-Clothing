@@ -12,57 +12,13 @@ interface HeroBannerProps {
   products?: IProduct[];
 }
 
-const defaultFallbacks = [
-  {
-    image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=500&h=650&fit=crop",
-    alt: "Girls clothing",
-    name: "Summer Floral Dress",
-    href: "/shop",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1622290291720-ac961c43ee30?w=500&h=400&fit=crop",
-    alt: "Baby onesies",
-    name: "Soft Cotton Onesie",
-    href: "/shop",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1598731470675-fd2af8f004c6?w=500&h=400&fit=crop",
-    alt: "Boys t-shirt",
-    name: "Cotton Blue T-Shirt",
-    href: "/shop",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=500&h=650&fit=crop",
-    alt: "Kids fashion",
-    name: "Princess Collection",
-    href: "/shop",
-  },
-];
-
 export default function HeroBanner({ products = [] }: HeroBannerProps) {
-  const getSlot = (index: number) => {
-    const prod = products[index];
-    if (prod) {
-      return {
-        image: prod.thumbnail || prod.images?.[0]?.url || defaultFallbacks[index].image,
-        alt: prod.name,
-        name: prod.name,
-        price: prod.price,
-        href: `/product/${prod.slug}`,
-        isRealProduct: true,
-      };
-    }
-    return {
-      ...defaultFallbacks[index],
-      price: undefined,
-      isRealProduct: false,
-    };
-  };
+  // Only display real products from database - NO dummy/placeholder images
+  const validProducts = (products || []).filter(
+    (p) => p && p.slug && (p.thumbnail || p.images?.[0]?.url)
+  );
 
-  const slot0 = getSlot(0);
-  const slot1 = getSlot(1);
-  const slot2 = getSlot(2);
-  const slot3 = getSlot(3);
+  const hasProducts = validProducts.length > 0;
 
   return (
     <section className="relative min-h-[70vh] sm:min-h-[85vh] flex items-center overflow-hidden">
@@ -86,8 +42,8 @@ export default function HeroBanner({ products = [] }: HeroBannerProps) {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-20 w-full">
+        <div className={`grid ${hasProducts ? "lg:grid-cols-2" : "max-w-3xl"} gap-8 lg:gap-12 items-center`}>
           {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -167,122 +123,84 @@ export default function HeroBanner({ products = [] }: HeroBannerProps) {
             </motion.div>
           </motion.div>
 
-          {/* Interactive Image Grid with direct product links */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="relative hidden lg:block"
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {/* Column 1 */}
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="space-y-4"
-              >
-                {/* Slot 0 */}
-                <Link
-                  href={slot0.href}
-                  className="group relative block w-full h-64 rounded-3xl overflow-hidden shadow-xl shadow-pink-200/50 border border-white/60 transition-transform duration-300 hover:scale-[1.02]"
+          {/* Real Products Grid - Rendered ONLY if real products exist in the store */}
+          {hasProducts && (
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+              <div className="grid grid-cols-2 gap-4">
+                {/* Column 1 */}
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="space-y-4"
                 >
-                  <Image
-                    src={slot0.image}
-                    alt={slot0.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="300px"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <p className="text-white text-xs font-semibold line-clamp-1">{slot0.name}</p>
-                    {slot0.price !== undefined && (
-                      <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(slot0.price)}</p>
-                    )}
-                    <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-1 font-medium">
-                      View details <ExternalLink className="h-3 w-3" />
-                    </span>
-                  </div>
-                </Link>
+                  {validProducts.slice(0, 2).map((product, i) => (
+                    <Link
+                      key={product._id || product.slug}
+                      href={`/product/${product.slug}`}
+                      className={`group relative block w-full ${
+                        i === 0 ? "h-64 shadow-pink-200/50" : "h-40 shadow-purple-200/50"
+                      } rounded-3xl overflow-hidden shadow-xl border border-white/60 transition-transform duration-300 hover:scale-[1.02]`}
+                    >
+                      <Image
+                        src={product.thumbnail || product.images?.[0]?.url || ""}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="300px"
+                        priority={i === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                        <p className="text-white text-xs font-semibold line-clamp-1">{product.name}</p>
+                        <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(product.price)}</p>
+                        <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-1 font-medium">
+                          View details <ExternalLink className="h-3 w-3" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </motion.div>
 
-                {/* Slot 1 */}
-                <Link
-                  href={slot1.href}
-                  className="group relative block w-full h-40 rounded-3xl overflow-hidden shadow-xl shadow-purple-200/50 border border-white/60 transition-transform duration-300 hover:scale-[1.02]"
-                >
-                  <Image
-                    src={slot1.image}
-                    alt={slot1.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="300px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                    <p className="text-white text-xs font-semibold line-clamp-1">{slot1.name}</p>
-                    {slot1.price !== undefined && (
-                      <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(slot1.price)}</p>
-                    )}
-                    <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-0.5 font-medium">
-                      View details <ExternalLink className="h-3 w-3" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-
-              {/* Column 2 */}
-              <motion.div
-                animate={{ y: [0, 15, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="space-y-4 pt-8"
-              >
-                {/* Slot 2 */}
-                <Link
-                  href={slot2.href}
-                  className="group relative block w-full h-40 rounded-3xl overflow-hidden shadow-xl shadow-indigo-200/50 border border-white/60 transition-transform duration-300 hover:scale-[1.02]"
-                >
-                  <Image
-                    src={slot2.image}
-                    alt={slot2.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="300px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                    <p className="text-white text-xs font-semibold line-clamp-1">{slot2.name}</p>
-                    {slot2.price !== undefined && (
-                      <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(slot2.price)}</p>
-                    )}
-                    <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-0.5 font-medium">
-                      View details <ExternalLink className="h-3 w-3" />
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Slot 3 */}
-                <Link
-                  href={slot3.href}
-                  className="group relative block w-full h-64 rounded-3xl overflow-hidden shadow-xl shadow-amber-200/50 border border-white/60 transition-transform duration-300 hover:scale-[1.02]"
-                >
-                  <Image
-                    src={slot3.image}
-                    alt={slot3.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="300px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <p className="text-white text-xs font-semibold line-clamp-1">{slot3.name}</p>
-                    {slot3.price !== undefined && (
-                      <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(slot3.price)}</p>
-                    )}
-                    <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-1 font-medium">
-                      View details <ExternalLink className="h-3 w-3" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
+                {/* Column 2 */}
+                {validProducts.length > 2 && (
+                  <motion.div
+                    animate={{ y: [0, 15, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                    className="space-y-4 pt-8"
+                  >
+                    {validProducts.slice(2, 4).map((product, i) => (
+                      <Link
+                        key={product._id || product.slug}
+                        href={`/product/${product.slug}`}
+                        className={`group relative block w-full ${
+                          i === 0 ? "h-40 shadow-indigo-200/50" : "h-64 shadow-amber-200/50"
+                        } rounded-3xl overflow-hidden shadow-xl border border-white/60 transition-transform duration-300 hover:scale-[1.02]`}
+                      >
+                        <Image
+                          src={product.thumbnail || product.images?.[0]?.url || ""}
+                          alt={product.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          sizes="300px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                          <p className="text-white text-xs font-semibold line-clamp-1">{product.name}</p>
+                          <p className="text-[#FFD8B1] text-xs font-bold mt-0.5">{formatPrice(product.price)}</p>
+                          <span className="inline-flex items-center gap-1 text-[11px] text-white/90 mt-1 font-medium">
+                            View details <ExternalLink className="h-3 w-3" />
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

@@ -30,6 +30,15 @@ export interface ISettingsDoc extends Document {
     button2Link: string;
     isActive: boolean;
   };
+  countdownTimer: {
+    tagline: string;
+    heading: string;
+    subheading: string;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isActive: boolean;
+  };
   metaTags: {
     title: string;
     description: string;
@@ -66,6 +75,15 @@ const SettingsSchema = new Schema<ISettingsDoc>(
       button1Link: { type: String, default: "/shop" },
       button2Text: { type: String, default: "New Arrivals" },
       button2Link: { type: String, default: "/shop?sort=newest" },
+      isActive: { type: Boolean, default: true },
+    },
+    countdownTimer: {
+      tagline: { type: String, default: "Limited Time Offer" },
+      heading: { type: String, default: "Summer Sale Up to 50% Off" },
+      subheading: { type: String, default: "Hurry! This deal ends soon" },
+      hours: { type: Number, default: 23 },
+      minutes: { type: Number, default: 59 },
+      seconds: { type: Number, default: 41 },
       isActive: { type: Boolean, default: true },
     },
     metaTags: {
