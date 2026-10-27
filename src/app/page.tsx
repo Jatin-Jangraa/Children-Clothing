@@ -8,6 +8,7 @@ import InstagramGallery from "@/components/home/InstagramGallery";
 import CountdownTimer from "@/components/home/CountdownTimer";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
+import Category from "@/models/Category";
 import type { IProduct } from "@/types";
 
 function getBaseUrl() {
@@ -46,7 +47,8 @@ async function getProducts(queryObj: {
       .lean();
 
     return JSON.parse(JSON.stringify(products));
-  } catch {
+  } catch (dbErr) {
+    console.error("Direct DB fetch failed in getProducts, attempting fallback fetch:", dbErr);
     try {
       const baseUrl = getBaseUrl();
       const params = new URLSearchParams();
@@ -55,7 +57,8 @@ async function getProducts(queryObj: {
       if (!res.ok) return [];
       const data = await res.json();
       return data.data || [];
-    } catch {
+    } catch (fetchErr) {
+      console.error("Fallback fetch also failed in getProducts:", fetchErr);
       return [];
     }
   }

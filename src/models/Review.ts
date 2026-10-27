@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import "./Product";
 
 export interface IReviewDoc extends Document {
   product: mongoose.Types.ObjectId;
