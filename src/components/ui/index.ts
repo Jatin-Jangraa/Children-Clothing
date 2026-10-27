@@ -10,3 +10,4 @@ export { default as EmptyState } from "./EmptyState";
 export { default as PageLoader } from "./PageLoader";
 export { default as Breadcrumb } from "./Breadcrumb";
 export { default as Modal } from "./Modal";
+export { default as ShareModal } from "./ShareModal";

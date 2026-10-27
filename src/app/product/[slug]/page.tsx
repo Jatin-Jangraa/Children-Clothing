@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingCart, Star, Minus, Plus, Truck, Shield, RotateCcw, Check, ThumbsUp, Send } from "lucide-react";
+import { Heart, ShoppingCart, Star, Minus, Plus, Truck, Shield, RotateCcw, Check, ThumbsUp, Send, Share2 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import Button from "@/components/ui/Button";
 import { Breadcrumb, ProductCard, Skeleton } from "@/components/ui";
@@ -13,6 +13,7 @@ import { formatPrice, calculateDiscount } from "@/utils";
 import { useCartStore, useWishlistStore } from "@/store";
 import { productQueries, reviewQueries } from "@/lib/queries";
 import { toast } from "sonner";
+import ShareModal from "@/components/ui/ShareModal";
 import type { IProduct } from "@/types";
 
 interface Review {
@@ -39,6 +40,7 @@ export default function ProductDetailsPage() {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: "", email: "", rating: 5, title: "", comment: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const { addItem, openCart } = useCartStore();
   const { toggleItem, isInWishlist } = useWishlistStore();
 
@@ -301,6 +303,15 @@ export default function ProductDetailsPage() {
               >
                 <Heart className="h-5 w-5" fill={inWishlist ? "currentColor" : "none"} />
               </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShareOpen(true)}
+                className="w-14 h-14 rounded-xl border-2 border-gray-200 hover:border-[#D97757] flex items-center justify-center transition-colors hover:bg-orange-50 hover:text-[#D97757]"
+                title="Share with image & link"
+              >
+                <Share2 className="h-5 w-5" />
+              </motion.button>
             </div>
 
             <Button size="lg" variant="secondary" fullWidth onClick={handleBuyNow} disabled={product.stock <= 0}>
@@ -320,7 +331,7 @@ export default function ProductDetailsPage() {
             {/* Product Info */}
             <div className="space-y-3 pt-4 border-t text-sm">
               {product.material && <div className="flex"><span className="text-gray-500 w-28">Material:</span><span>{product.material}</span></div>}
-              {product.ageGroup && <div className="flex"><span className="text-gray-500 w-28">Age Group:</span><span>{product.ageGroup}</span></div>}
+              {((product.ageGroups && product.ageGroups.length > 0) || product.ageGroup) && <div className="flex"><span className="text-gray-500 w-28">Age Group:</span><span>{product.ageGroups && product.ageGroups.length > 0 ? product.ageGroups.join(", ") : product.ageGroup}</span></div>}
               {product.gender && <div className="flex"><span className="text-gray-500 w-28">Gender:</span><span className="capitalize">{product.gender}</span></div>}
               {product.sku && <div className="flex"><span className="text-gray-500 w-28">SKU:</span><span>{product.sku}</span></div>}
             </div>
@@ -495,6 +506,7 @@ export default function ProductDetailsPage() {
           </div>
         )}
       </div>
+      {product && <ShareModal isOpen={shareOpen} onClose={() => setShareOpen(false)} product={product} />}
     </Layout>
   );
 }

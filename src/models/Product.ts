@@ -15,6 +15,7 @@ export interface IProductDoc extends Document {
   subcategory: string;
   brand: string;
   ageGroup: string;
+  ageGroups?: string[];
   gender: "boys" | "girls" | "unisex";
   sizes: string[];
   colors: { name: string; hex: string }[];
@@ -51,7 +52,8 @@ const ProductSchema = new Schema<IProductDoc>(
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     subcategory: { type: String, default: "" },
     brand: { type: String, required: true },
-    ageGroup: { type: String, required: true },
+    ageGroup: { type: String, default: "" },
+    ageGroups: [{ type: String }],
     gender: { type: String, enum: ["boys", "girls", "unisex"], required: true },
     sizes: [{ type: String }],
     colors: [{ name: { type: String }, hex: { type: String } }],
@@ -79,6 +81,7 @@ const ProductSchema = new Schema<IProductDoc>(
 ProductSchema.index({ name: "text", description: "text", tags: "text" });
 ProductSchema.index({ slug: 1 });
 ProductSchema.index({ category: 1 });
+ProductSchema.index({ ageGroups: 1 });
 ProductSchema.index({ price: 1 });
 ProductSchema.index({ isFeatured: 1 });
 ProductSchema.index({ isTrending: 1 });

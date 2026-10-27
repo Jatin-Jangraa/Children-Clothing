@@ -24,6 +24,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     await connectDB();
     const { id } = await params;
     const body = await req.json();
+    if (body.ageGroups && Array.isArray(body.ageGroups) && body.ageGroups.length > 0) {
+      if (!body.ageGroup) body.ageGroup = body.ageGroups.join(", ");
+    } else if (body.ageGroup && (!body.ageGroups || body.ageGroups.length === 0)) {
+      body.ageGroups = [body.ageGroup];
+    }
     const product = await Product.findByIdAndUpdate(id, body, { new: true });
     if (!product) return NextResponse.json({ success: false, error: "Not found" }, { status: 404 });
     return NextResponse.json({ success: true, data: product });

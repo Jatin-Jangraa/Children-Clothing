@@ -22,6 +22,7 @@ export default function CreateProductPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [categories, setCategories] = useState<any[]>([]);
   const [selectedColors, setSelectedColors] = useState<{ name: string; hex: string }[]>([]);
+  const [selectedAges, setSelectedAges] = useState<string[]>([]);
   const [images, setImages] = useState<{ url: string; alt: string; publicId?: string }[]>([]);
 
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<ProductFormData>({
@@ -61,6 +62,8 @@ export default function CreateProductPage() {
         ...data,
         slug,
         sku,
+        ageGroups: selectedAges.length > 0 ? selectedAges : (data.ageGroups || []),
+        ageGroup: selectedAges.length > 0 ? selectedAges.join(", ") : (data.ageGroup || ""),
         colors: selectedColors.length > 0 ? selectedColors : data.colors,
         images: imageData,
         thumbnail,
@@ -78,6 +81,15 @@ export default function CreateProductPage() {
     setSelectedColors((prev) =>
       prev.find((c) => c.name === color.name) ? prev.filter((c) => c.name !== color.name) : [...prev, color]
     );
+  };
+
+  const toggleAge = (age: string) => {
+    setSelectedAges((prev) => {
+      const updated = prev.includes(age) ? prev.filter((a) => a !== age) : [...prev, age];
+      setValue("ageGroups", updated);
+      setValue("ageGroup", updated.join(", "));
+      return updated;
+    });
   };
 
   return (
@@ -121,7 +133,38 @@ export default function CreateProductPage() {
           <h2 className="font-bold text-lg">Target Audience</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <Select label="Gender" options={GENDERS.map((g) => ({ label: g.charAt(0).toUpperCase() + g.slice(1), value: g }))} {...register("gender")} />
-            <Select label="Age Group" options={AGE_GROUPS.map((a) => ({ label: a, value: a }))} placeholder="Select age group" error={errors.ageGroup?.message} {...register("ageGroup")} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Age Groups (Select all applicable ages)
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {AGE_GROUPS.map((age) => {
+                const isSelected = selectedAges.includes(age);
+                return (
+                  <button
+                    key={age}
+                    type="button"
+                    onClick={() => toggleAge(age)}
+                    className={`px-3 py-1.5 border rounded-lg text-xs font-medium transition-all ${
+                      isSelected
+                        ? "bg-[#D97757] text-white border-[#D97757] shadow-xs"
+                        : "bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-300"
+                    }`}
+                  >
+                    {age}
+                  </button>
+                );
+              })}
+            </div>
+            {selectedAges.length > 0 && (
+              <p className="text-xs text-stone-500 mt-1.5">
+                Selected: <span className="font-semibold text-stone-800">{selectedAges.join(", ")}</span>
+              </p>
+            )}
+            {errors.ageGroup && selectedAges.length === 0 && (
+              <p className="text-xs text-red-500 mt-1">{errors.ageGroup.message}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Available Sizes</label>

@@ -65,6 +65,17 @@ function ShopContent() {
     setPage(1);
   };
 
+  const selectedAgeGroups = filters.ageGroup ? filters.ageGroup.split(",").map((s) => s.trim()).filter(Boolean) : [];
+
+  const toggleAgeGroup = (age: string) => {
+    setFilters((prev) => {
+      const current = prev.ageGroup ? prev.ageGroup.split(",").map((s) => s.trim()).filter(Boolean) : [];
+      const updated = current.includes(age) ? current.filter((a) => a !== age) : [...current, age];
+      return { ...prev, ageGroup: updated.join(",") };
+    });
+    setPage(1);
+  };
+
   const activeFilterCount = Object.values(filters).filter((v) => v && v !== "newest").length;
 
   return (
@@ -127,10 +138,13 @@ function ShopContent() {
                 <h4 className="font-semibold text-sm mb-3">Age Group</h4>
                 {AGE_GROUPS.map((age) => (
                   <label key={age} className="flex items-center gap-2 py-1.5 cursor-pointer">
-                    <input type="radio" name="age" checked={filters.ageGroup === age} onChange={() => updateFilter("ageGroup", filters.ageGroup === age ? "" : age)} className="accent-pink-500" />
+                    <input type="checkbox" checked={selectedAgeGroups.includes(age)} onChange={() => toggleAgeGroup(age)} className="accent-pink-500 w-4 h-4 rounded" />
                     <span className="text-sm">{age}</span>
                   </label>
                 ))}
+                {selectedAgeGroups.length > 0 && (
+                  <p className="text-xs text-stone-500 mt-1">Selected: {selectedAgeGroups.join(", ")}</p>
+                )}
               </div>
               {/* Brand */}
               <div>

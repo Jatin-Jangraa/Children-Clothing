@@ -22,7 +22,22 @@ export async function GET(req: NextRequest) {
     if (slug) filter.slug = slug;
     if (searchParams.get("category")) filter.subcategory = searchParams.get("category");
     if (searchParams.get("gender")) filter.gender = searchParams.get("gender");
-    if (searchParams.get("ageGroup")) filter.ageGroup = searchParams.get("ageGroup");
+    const ageGroupParam = searchParams.get("ageGroup") || searchParams.get("ageGroups");
+    if (ageGroupParam) {
+      const ages = ageGroupParam.split(",").map((a) => a.trim()).filter(Boolean);
+      if (ages.length === 1) {
+        filter.$or = [
+          { ageGroup: ages[0] },
+          { ageGroups: ages[0] },
+          { ageGroups: { $in: ages } }
+        ];
+      } else if (ages.length > 1) {
+        filter.$or = [
+          { ageGroup: { $in: ages } },
+          { ageGroups: { $in: ages } }
+        ];
+      }
+    }
     if (searchParams.get("brand")) filter.brand = searchParams.get("brand");
     if (searchParams.get("color")) filter["colors.name"] = searchParams.get("color");
     if (searchParams.get("size")) filter.sizes = searchParams.get("size");
@@ -77,6 +92,11 @@ export async function POST(req: NextRequest) {
     }
     await connectDB();
     const body = await req.json();
+    if (body.ageGroups && Array.isArray(body.ageGroups) && body.ageGroups.length > 0) {
+      if (!body.ageGroup) body.ageGroup = body.ageGroups.join(", ");
+    } else if (body.ageGroup && (!body.ageGroups || body.ageGroups.length === 0)) {
+      body.ageGroups = [body.ageGroup];
+    }
     const slug = body.name.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");
     const product = await Product.create({ ...body, slug });
     return NextResponse.json({ success: true, data: product }, { status: 201 });

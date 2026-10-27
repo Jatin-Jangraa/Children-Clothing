@@ -13,6 +13,7 @@ export interface IProduct {
   subcategory: string;
   brand: string;
   ageGroup: string;
+  ageGroups?: string[];
   gender: "boys" | "girls" | "unisex";
   sizes: string[];
   colors: { name: string; hex: string }[];
@@ -283,6 +284,7 @@ export interface ProductFilters {
   subcategory?: string;
   gender?: string;
   ageGroup?: string;
+  ageGroups?: string[];
   brand?: string;
   minPrice?: number;
   maxPrice?: number;
