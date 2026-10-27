@@ -191,7 +191,7 @@ export default function CheckoutPage() {
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2"><MapPin className="h-5 w-5 text-pink-500" /> Shipping Information</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <Input label="Full Name" icon={<User className="h-4 w-4" />} placeholder="John Doe" error={errors.name?.message as string} {...register("name")} />
-                <Input label="Phone" icon={<Phone className="h-4 w-4" />} placeholder="+91 98765 43210" error={errors.phone?.message as string} {...register("phone")} />
+                <Input label="Phone" icon={<Phone className="h-4 w-4" />} placeholder="+91 11111 11111" error={errors.phone?.message as string} {...register("phone")} />
                 <Input label="Email" icon={<Mail className="h-4 w-4" />} placeholder="john@example.com" className="md:col-span-2" error={errors.email?.message as string} {...register("email")} />
                 <Input label="Address" icon={<Map className="h-4 w-4" />} placeholder="123, Street Name" className="md:col-span-2" error={errors.address?.message as string} {...register("address")} />
                 <Input label="City" icon={<Building className="h-4 w-4" />} placeholder="Mumbai" error={errors.city?.message as string} {...register("city")} />

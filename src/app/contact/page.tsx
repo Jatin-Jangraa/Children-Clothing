@@ -22,7 +22,7 @@ export default function ContactPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {[{ icon: Phone, title: "Call Us", detail: "+91 98765 43210", sub: "Mon-Sat, 10AM-7PM" },
+          {[{ icon: Phone, title: "Call Us", detail: "+91 11111 11111", sub: "Mon-Sat, 10AM-7PM" },
             { icon: Mail, title: "Email Us", detail: "hello@littlecloset.in", sub: "We reply within 24 hours" },
             { icon: MapPin, title: "Visit Us", detail: "Mumbai, Maharashtra", sub: "India" }].map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}

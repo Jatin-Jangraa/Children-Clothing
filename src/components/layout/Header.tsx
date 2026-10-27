@@ -381,7 +381,7 @@ export default function Header() {
                     <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
                       <Phone className="h-4 w-4 text-blue-500" />
                     </div>
-                    +91 98765 43210
+                    +91 11111 11111
                   </a>
                   <a href="mailto:hello@littlecloset.in" className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
                     <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">

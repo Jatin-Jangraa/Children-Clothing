@@ -3,7 +3,7 @@ export const siteConfig = {
   description: "Premium Children's Clothing - Where Style Meets Comfort",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   email: "hello@littlecloset.in",
-  phone: "+91 98765 43210",
+  phone: "+91 11111 11111",
   address: "Mumbai, Maharashtra, India",
   social: {
     facebook: "https://facebook.com/littlecloset",

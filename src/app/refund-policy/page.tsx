@@ -17,7 +17,7 @@ export default function RefundPolicyPage() {
             <div><h2 className="text-xl font-bold text-gray-800 mb-3">Refund Process</h2><p className="leading-relaxed">Once we receive and inspect the returned item, your refund will be processed within 5-7 business days. The refund will be credited to your original payment method.</p></div>
             <div><h2 className="text-xl font-bold text-gray-800 mb-3">Non-Returnable Items</h2><p className="leading-relaxed">Items that are worn, washed, damaged, or without original tags are not eligible for return. Sale items and accessories are also non-returnable.</p></div>
             <div><h2 className="text-xl font-bold text-gray-800 mb-3">Damaged or Defective Items</h2><p className="leading-relaxed">If you receive a damaged or defective item, please contact us within 48 hours with photos. We will arrange a free return and full refund.</p></div>
-            <div><h2 className="text-xl font-bold text-gray-800 mb-3">Contact Us</h2><p className="leading-relaxed">For refund-related queries, contact us at hello@littlecloset.in or call +91 98765 43210.</p></div>
+            <div><h2 className="text-xl font-bold text-gray-800 mb-3">Contact Us</h2><p className="leading-relaxed">For refund-related queries, contact us at hello@littlecloset.in or call +91 11111 11111.</p></div>
           </div>
         </motion.div>
       </div>

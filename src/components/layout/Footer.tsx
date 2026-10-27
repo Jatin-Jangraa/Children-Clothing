@@ -94,7 +94,7 @@ export default function Footer() {
             </p>
             <div className="space-y-2 sm:space-y-3">
               <a href="tel:+919876543210" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
-                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> +91 98765 43210
+                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> +91 11111 11111
               </a>
               <a href="mailto:hello@littlecloset.in" className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-300 hover:text-[#FFD8B1] transition-colors">
                 <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> hello@littlecloset.in
