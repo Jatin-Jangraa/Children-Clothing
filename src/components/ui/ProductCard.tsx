@@ -67,8 +67,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       ? [product.ageGroup]
       : [];
 
-  // Single refined status badge (no stacked loud red, green, yellow bars)
+  // Single refined status badge
+  const isOutOfStock = product.stock !== undefined && product.stock <= 0;
   const badge = (() => {
+    if (isOutOfStock) return { text: "Out of Stock", style: "bg-rose-600 text-white border-transparent" };
     if (product.isNewArrival) return { text: "New", style: "bg-white/95 text-stone-800 border-stone-200/80 shadow-xs" };
     if (product.isBestSeller) return { text: "Bestseller", style: "bg-stone-900/90 text-white border-transparent" };
     if (product.isTrending) return { text: "Trending", style: "bg-white/95 text-stone-800 border-stone-200/80 shadow-xs" };
@@ -155,14 +157,20 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  disabled={isAdding}
-                  className="w-full py-2.5 px-3 bg-stone-900/95 hover:bg-stone-900 text-white rounded-lg text-xs font-medium tracking-wide flex items-center justify-center gap-2 shadow-lg backdrop-blur-md transition-all active:scale-[0.98]"
+                  disabled={isAdding || isOutOfStock}
+                  className={`w-full py-2.5 px-3 rounded-lg text-xs font-medium tracking-wide flex items-center justify-center gap-2 shadow-lg backdrop-blur-md transition-all active:scale-[0.98] ${
+                    isOutOfStock
+                      ? "bg-stone-400 text-white cursor-not-allowed"
+                      : "bg-stone-900/95 hover:bg-stone-900 text-white"
+                  }`}
                 >
                   {isAdding ? (
                     <>
                       <Check className="w-3.5 h-3.5" />
                       <span>Added</span>
                     </>
+                  ) : isOutOfStock ? (
+                    <span>Out of Stock</span>
                   ) : (
                     <>
                       <ShoppingBag className="w-3.5 h-3.5" />
@@ -241,19 +249,21 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                   </div>
                 ) : (
                   <span className="text-[11px] text-stone-400">
-                    {product.sizes?.[0] ? `${product.sizes.length} sizes` : "In Stock"}
+                    {isOutOfStock ? "Out of Stock" : product.sizes?.[0] ? `${product.sizes.length} sizes` : "In Stock"}
                   </span>
                 )}
 
                 {/* Mobile Quick Add Icon Button */}
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  className="sm:hidden p-1.5 text-stone-700 hover:text-stone-900 hover:bg-stone-100 rounded-full transition-colors"
-                  aria-label="Add to cart"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                </button>
+                {!isOutOfStock && (
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="sm:hidden p-1.5 text-stone-700 hover:text-stone-900 hover:bg-stone-100 rounded-full transition-colors"
+                    aria-label="Add to cart"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
           </div>

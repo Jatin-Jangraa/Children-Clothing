@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import mongoose from "mongoose";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
+import Category from "@/models/Category";
 import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
@@ -12,6 +15,7 @@ export async function GET(req: NextRequest) {
     const slug = searchParams.get("slug");
     const sort = searchParams.get("sort") || "newest";
     const includeInactive = searchParams.get("includeInactive") === "true";
+    const idsParam = searchParams.get("ids");
 
     let filter: any = {};
 
@@ -19,9 +23,45 @@ export async function GET(req: NextRequest) {
       filter.isActive = true;
     }
 
+    if (idsParam) {
+      const ids = idsParam.split(",").map((s) => s.trim()).filter((id) => mongoose.isValidObjectId(id));
+      if (ids.length > 0) {
+        filter._id = { $in: ids };
+      }
+    }
+
     if (slug) filter.slug = slug;
-    if (searchParams.get("category")) filter.subcategory = searchParams.get("category");
+
+    // Smart category matching
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      if (mongoose.isValidObjectId(categoryParam)) {
+        filter.category = categoryParam;
+      } else {
+        const cat: any = await Category.findOne({
+          $or: [
+            { slug: categoryParam.toLowerCase() },
+            { name: new RegExp(`^${categoryParam}$`, "i") },
+          ],
+        }).lean();
+
+        if (cat) {
+          filter.category = cat._id;
+        } else {
+          filter.$or = [
+            { subcategory: new RegExp(`^${categoryParam}$`, "i") },
+            { tags: new RegExp(`^${categoryParam}$`, "i") },
+          ];
+        }
+      }
+    }
+
+    if (searchParams.get("subcategory")) {
+      filter.subcategory = new RegExp(`^${searchParams.get("subcategory")}$`, "i");
+    }
+
     if (searchParams.get("gender")) filter.gender = searchParams.get("gender");
+
     const ageGroupParam = searchParams.get("ageGroup") || searchParams.get("ageGroups");
     if (ageGroupParam) {
       const ages = ageGroupParam.split(",").map((a) => a.trim()).filter(Boolean);
@@ -29,15 +69,16 @@ export async function GET(req: NextRequest) {
         filter.$or = [
           { ageGroup: ages[0] },
           { ageGroups: ages[0] },
-          { ageGroups: { $in: ages } }
+          { ageGroups: { $in: ages } },
         ];
       } else if (ages.length > 1) {
         filter.$or = [
           { ageGroup: { $in: ages } },
-          { ageGroups: { $in: ages } }
+          { ageGroups: { $in: ages } },
         ];
       }
     }
+
     if (searchParams.get("brand")) filter.brand = searchParams.get("brand");
     if (searchParams.get("color")) filter["colors.name"] = searchParams.get("color");
     if (searchParams.get("size")) filter.sizes = searchParams.get("size");
@@ -92,13 +133,27 @@ export async function POST(req: NextRequest) {
     }
     await connectDB();
     const body = await req.json();
+
     if (body.ageGroups && Array.isArray(body.ageGroups) && body.ageGroups.length > 0) {
       if (!body.ageGroup) body.ageGroup = body.ageGroups.join(", ");
     } else if (body.ageGroup && (!body.ageGroups || body.ageGroups.length === 0)) {
       body.ageGroups = [body.ageGroup];
     }
-    const slug = body.name.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");
+
+    const slug = body.name
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
     const product = await Product.create({ ...body, slug });
+
+    try {
+      revalidatePath("/");
+      revalidatePath("/shop");
+      revalidatePath("/admin/products");
+    } catch {}
+
     return NextResponse.json({ success: true, data: product }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

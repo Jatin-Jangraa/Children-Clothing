@@ -27,7 +27,7 @@ export default function EditProductPage() {
   useEffect(() => {
     Promise.all([
       productQueries.getById(params.id as string),
-      categoryQueries.getAll(),
+      categoryQueries.getAll({ includeAll: true }),
     ])
       .then(([productRes, catRes]) => {
         const product = productRes.data || {};
@@ -73,29 +73,36 @@ export default function EditProductPage() {
     try {
       const imageData = images.map((img) => ({ url: img.url, alt: img.alt }));
       const thumbnail = images.length > 0 ? images[0].url : "";
+      const categoryId =
+        typeof form.category === "object" && form.category?._id
+          ? form.category._id
+          : form.category;
+
       await productQueries.update(params.id as string, {
         ...form,
+        category: categoryId,
         ageGroups: selectedAges,
         ageGroup: selectedAges.join(", "),
         sizes: selectedSizes,
         images: imageData,
         thumbnail,
       });
-      toast.success("Product updated!");
+      toast.success("Product updated successfully!");
       router.push("/admin/products");
-    } catch {
-      toast.error("Failed to update");
+      router.refresh();
+    } catch (err: any) {
+      toast.error(err?.response?.data?.error || err.message || "Failed to update product");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
+  if (loading) return <div className="text-center py-20 text-gray-500">Loading product...</div>;
 
   return (
     <div className="max-w-4xl space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/products" className="p-2 hover:bg-gray-100 rounded-xl">
+        <Link href="/admin/products" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <h1 className="text-2xl font-bold">Edit Product</h1>
@@ -212,37 +219,47 @@ export default function EditProductPage() {
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
-          <h2 className="font-bold text-lg">Pricing</h2>
+          <h2 className="font-bold text-lg">Pricing & Inventory</h2>
           <div className="grid md:grid-cols-3 gap-4">
             <Input
               label="Price (₹)"
               type="number"
               value={form.price || ""}
-              onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
+              onChange={(e) => {
+                const price = Number(e.target.value);
+                const mrp = Number(form.mrp || 0);
+                const discount = mrp > 0 && price > 0 ? Math.round(((mrp - price) / mrp) * 100) : form.discount;
+                setForm({ ...form, price, discount });
+              }}
             />
             <Input
               label="MRP (₹)"
               type="number"
               value={form.mrp || ""}
-              onChange={(e) => setForm({ ...form, mrp: Number(e.target.value) })}
+              onChange={(e) => {
+                const mrp = Number(e.target.value);
+                const price = Number(form.price || 0);
+                const discount = mrp > 0 && price > 0 ? Math.round(((mrp - price) / mrp) * 100) : form.discount;
+                setForm({ ...form, mrp, discount });
+              }}
             />
             <Input
               label="Discount (%)"
               type="number"
-              value={form.discount || 0}
+              value={form.discount ?? 0}
               onChange={(e) => setForm({ ...form, discount: Number(e.target.value) })}
             />
           </div>
           <Input
-            label="Stock"
+            label="Stock Quantity"
             type="number"
-            value={form.stock || 0}
+            value={form.stock ?? 0}
             onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })}
           />
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
-          <h2 className="font-bold text-lg">Status</h2>
+          <h2 className="font-bold text-lg">Display & Status Settings</h2>
           <div className="flex flex-wrap gap-4">
             {(
               [
@@ -257,13 +274,15 @@ export default function EditProductPage() {
               <label key={flag} className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={form[flag] || false}
+                  checked={form[flag] ?? false}
                   onChange={(e) => setForm({ ...form, [flag]: e.target.checked })}
                   className="w-4 h-4 accent-pink-500 rounded"
                 />
                 <span className="text-sm font-medium">
                   {flag === "showInHero"
                     ? "Show in Hero Section (Home)"
+                    : flag === "isActive"
+                    ? "Active (Visible in Store)"
                     : flag.replace(/([A-Z])/g, " $1").replace(/^is/, "")}
                 </span>
               </label>

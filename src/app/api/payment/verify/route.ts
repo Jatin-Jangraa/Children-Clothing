@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
+import Coupon from "@/models/Coupon";
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,6 +37,15 @@ export async function POST(req: NextRequest) {
       for (const item of order.items) {
         await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
       }
+
+      // Increment coupon usage count if a coupon was used
+      if (order.couponCode) {
+        await Coupon.findOneAndUpdate(
+          { code: order.couponCode.toUpperCase() },
+          { $inc: { usedCount: 1 } }
+        );
+      }
+
       return NextResponse.json({ success: true, message: "Payment verified" });
     } else {
       return NextResponse.json({ success: false, error: "Invalid signature" }, { status: 400 });

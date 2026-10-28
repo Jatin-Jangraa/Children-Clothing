@@ -11,6 +11,9 @@ import Product from "@/models/Product";
 import Category from "@/models/Category";
 import type { IProduct } from "@/types";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function getBaseUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
@@ -53,7 +56,7 @@ async function getProducts(queryObj: {
       const baseUrl = getBaseUrl();
       const params = new URLSearchParams();
       Object.entries(queryObj).forEach(([k, v]) => params.append(k, String(v)));
-      const res = await fetch(`${baseUrl}/api/products?${params.toString()}`, { next: { revalidate: 60 } });
+      const res = await fetch(`${baseUrl}/api/products?${params.toString()}`, { cache: "no-store" });
       if (!res.ok) return [];
       const data = await res.json();
       return data.data || [];

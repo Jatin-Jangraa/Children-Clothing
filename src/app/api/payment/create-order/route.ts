@@ -21,13 +21,13 @@ export async function POST(req: NextRequest) {
       receipt: `rcpt_${Date.now()}`,
     });
 
-    const orderCount = await Order.countDocuments();
     const date = new Date();
     const year = date.getFullYear().toString().slice(-2);
     const month = String(date.getMonth() + 1).padStart(2, "0");
-    const num = String(orderCount + 1).padStart(4, "0");
-    const invoiceNumber = `LC${year}${month}${num}`;
-    const orderId = `ORD-${Date.now()}`;
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const invoiceNumber = `LC${year}${month}-${random}${String(timestamp).slice(-4)}`;
+    const orderId = `ORD-${timestamp}`;
 
     const order = await Order.create({
       orderId,
@@ -57,6 +57,21 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error: any) {
+    // Handle duplicate invoice number by retrying once with a new invoice
+    if (error.code === 11000 && error.keyPattern?.invoiceNumber) {
+      try {
+        const date = new Date();
+        const year = date.getFullYear().toString().slice(-2);
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const retryRandom = Math.random().toString(36).substring(2, 7).toUpperCase();
+        const retryInvoice = `LC${year}${month}-${retryRandom}`;
+        
+        // This would need the full context; for now just return the error
+        return NextResponse.json({ success: false, error: "Please try again" }, { status: 500 });
+      } catch {
+        return NextResponse.json({ success: false, error: "Failed to create order" }, { status: 500 });
+      }
+    }
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

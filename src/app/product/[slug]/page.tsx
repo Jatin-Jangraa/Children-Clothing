@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingCart, Star, Minus, Plus, Truck, Shield, RotateCcw, Check, ThumbsUp, Send, Share2 } from "lucide-react";
+import { Heart, ShoppingCart, Star, Minus, Plus, Truck, Shield, RotateCcw, Check, X, ThumbsUp, Send, Share2 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import Button from "@/components/ui/Button";
 import { Breadcrumb, ProductCard, Skeleton } from "@/components/ui";
@@ -286,14 +286,25 @@ export default function ProductDetailsPage() {
 
             {/* Stock */}
             <div className="flex items-center gap-2">
-              <Check className="h-4 w-4 text-green-500" />
-              <span className="text-sm text-green-600 font-medium">In Stock</span>
+              {product.stock > 0 ? (
+                <>
+                  <Check className="h-4 w-4 text-green-500" />
+                  <span className="text-sm text-green-600 font-medium">
+                    {product.stock <= 5 ? `Only ${product.stock} left in stock - order soon` : "In Stock"}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <X className="h-4 w-4 text-red-500" />
+                  <span className="text-sm text-red-500 font-medium">Out of Stock</span>
+                </>
+              )}
             </div>
 
             {/* Actions */}
             <div className="flex gap-3">
-              <Button size="lg" className="flex-1 group" onClick={handleAddToCart} >
-                <ShoppingCart className="h-5 w-5 mr-2" /> Add to Cart
+              <Button size="lg" className="flex-1 group" onClick={handleAddToCart} disabled={product.stock <= 0}>
+                <ShoppingCart className="h-5 w-5 mr-2" /> {product.stock <= 0 ? "Out of Stock" : "Add to Cart"}
               </Button>
               <motion.button
                 whileHover={{ scale: 1.05 }}

@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 export const productQueries = {
-  getAll: async (filters?: ProductFilters) => {
+  getAll: async (filters?: ProductFilters & { ids?: string; includeInactive?: boolean }) => {
     const params = new URLSearchParams();
     if (filters) {
       Object.entries(filters).forEach(([key, value]) => {
@@ -44,8 +44,9 @@ export const productQueries = {
 };
 
 export const categoryQueries = {
-  getAll: async () => {
-    const { data } = await api.get<ApiResponse<any>>("/categories");
+  getAll: async (options?: { includeAll?: boolean }) => {
+    const query = options?.includeAll ? "?includeAll=true" : "";
+    const { data } = await api.get<ApiResponse<any>>(`/categories${query}`);
     return data;
   },
   getBySlug: async (slug: string) => {
@@ -98,6 +99,10 @@ export const couponQueries = {
     const { data } = await api.post<ApiResponse<any>>("/coupons", coupon);
     return data;
   },
+  update: async (id: string, coupon: any) => {
+    const { data } = await api.put<ApiResponse<any>>(`/coupons/${id}`, coupon);
+    return data;
+  },
   delete: async (id: string) => {
     const { data } = await api.delete<ApiResponse<any>>(`/coupons/${id}`);
     return data;
@@ -105,8 +110,9 @@ export const couponQueries = {
 };
 
 export const bannerQueries = {
-  getAll: async () => {
-    const { data } = await api.get<ApiResponse<any>>("/banners");
+  getAll: async (includeAll = false) => {
+    const query = includeAll ? "?includeAll=true" : "";
+    const { data } = await api.get<ApiResponse<any>>(`/banners${query}`);
     return data;
   },
   create: async (banner: any) => {
