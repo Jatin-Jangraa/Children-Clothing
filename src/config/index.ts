@@ -13,6 +13,6 @@ export const siteConfig = {
     pinterest: "https://pinterest.com/littlecloset",
   },
   razorpay: {
-    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+    key: process.env.RAZORPAY_KEY_ID || "",
   },
 };

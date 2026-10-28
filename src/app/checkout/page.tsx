@@ -102,7 +102,7 @@ export default function CheckoutPage() {
       if (!orderData.success) throw new Error(orderData.error);
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: process.env.RAZORPAY_KEY_ID,
         amount: orderData.data.amount * 100,
         currency: "INR",
         name: "Little Closet",
